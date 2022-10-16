@@ -1,0 +1,30 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat&family=Prompt&display=swap');
+
+:root {
+  /* Global Settings */
+  font-family: 'Prompt', sans-serif;
+  font-family: 'Montserrat', sans-serif;
+}
+
+/* CSS RESET */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+.App {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 100vh;
+  min-width: 100%;
+}
+
+html {
+  height: auto;
+  scroll-behavior: smooth;
+}
