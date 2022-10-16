@@ -21,15 +21,30 @@ const SalesPersonList = () => {
     return <StyledError>{error}</StyledError>;
   }
 
-  return salesPeople?.map((salesPerson) => {
-    return (
-      <h1 key={salesPerson?.id}>
-        <Link to={`/sales-people/${salesPerson?.id}`}>
-          {salesPerson?.firstName} {salesPerson?.lastName}
-        </Link>
-      </h1>
-    );
-  });
+  return (
+    <table className="module">
+      <thead>
+        <tr>
+          <td className="title">Sales People</td>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td className="entry">
+            {salesPeople?.map((salesPerson) => {
+              return (
+                <p key={salesPerson?.id}>
+                  <Link to={`/sales-people/${salesPerson?.id}`}>
+                    {salesPerson?.firstName} {salesPerson?.lastName}
+                  </Link>
+                </p>
+              );
+            })}
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  );
 };
 
 export default SalesPersonList;

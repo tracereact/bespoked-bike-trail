@@ -19,10 +19,10 @@ const App = () => {
         <Route
           path="/"
           element={
-            <>
+            <div className="modules">
               <ProductList />
               <SalesPersonList />
-            </>
+            </div>
           }
         />
         <Route

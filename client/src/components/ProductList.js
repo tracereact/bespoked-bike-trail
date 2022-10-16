@@ -21,13 +21,28 @@ const ProductList = () => {
     return <StyledError>{error}</StyledError>;
   }
 
-  return products?.map((product) => {
-    return (
-      <h1 key={product?.id}>
-        <Link to={`/products/${product?.id}`}>{product?.name}</Link>
-      </h1>
-    );
-  });
+  return (
+    <table className="module">
+      <thead>
+        <tr>
+          <td className="title">Inventory</td>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td className="entry">
+            {products?.map((product) => {
+              return (
+                <p key={product?.id}>
+                  <Link to={`/products/${product?.id}`}>{product?.name}</Link>
+                </p>
+              );
+            })}
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  );
 };
 
 export default ProductList;

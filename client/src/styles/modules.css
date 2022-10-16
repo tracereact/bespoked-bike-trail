@@ -1,0 +1,16 @@
+@import url(./global.css);
+
+.modules {
+  
+
+  /* Testing */
+  border: 2px solid green;
+}
+
+.module {
+  border: 2px solid red;
+}
+
+.module .title {
+  font-size: 2rem;
+}

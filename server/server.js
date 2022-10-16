@@ -28,6 +28,8 @@ const commitToDb = async (promise) => {
   return data;
 };
 
+/* ------------------ GETs ------------------ */
+
 // List products available
 app.get('/products', async () => {
   const result = await commitToDb(
@@ -145,4 +147,10 @@ app.get('/sales-people/:id', async (req) => {
   return result;
 });
 
+/* ------------------ POSTs ------------------ */
+
+// Add new product
+// app.post('/products/:id')
+
+// Start server
 app.listen({ port: process.env.PORT });
