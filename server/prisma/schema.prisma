@@ -9,3 +9,62 @@ datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
+
+model Product {
+  id                    String  @id @default(uuid())
+  name                  String
+  manufacturer          String
+  style                 String
+  purchasePrice         String
+  salePrice             String
+  qtyOnHand             String
+  commissionPercentage  String
+
+  sales                 Sales[]
+  discounts             Discount[]
+}
+
+model SalesPerson {
+  id              String    @id @default(uuid())
+  firstName       String
+  lastName        String
+  address         String
+  phone           String
+  startDate       DateTime  @default(now())
+  terminationDate DateTime
+  manager         String
+
+  sales           Sales[]
+}
+
+model Customer {
+  id        String    @id @default(uuid())
+  firstName String
+  lastName  String
+  address   String
+  phone     String
+  startDate DateTime  @default(now())
+
+  sales     Sales[]
+}
+
+model Sales {
+  product       Product     @relation(fields: [productId], references: [id])
+  productId     String
+  salesPerson   SalesPerson @relation(fields: [salesPersonId], references: [id])
+  salesPersonId String
+  customer      Customer    @relation(fields: [customerId], references: [id])
+  customerId    String
+  salesDate     DateTime    @default(now())
+
+  @@id([customerId, productId])
+}
+
+model Discount {
+  id                  String    @id @default(uuid())
+  product             Product   @relation(fields: [productId], references: [id])
+  productId           String
+  beginDate           DateTime  @default(now())
+  endDate             DateTime
+  discountPercentage  String
+}
