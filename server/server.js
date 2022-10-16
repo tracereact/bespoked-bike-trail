@@ -99,4 +99,49 @@ app.get('/products/:id', async (req) => {
   return result;
 });
 
+// List sales people
+app.get('/sales-people', async () => {
+  const result = await commitToDb(
+    prisma.salesPerson.findMany({
+      select: {
+        id: true,
+        name: true,
+      },
+    })
+  );
+  return result;
+});
+
+// Get individual sales person
+app.get('/sales-people/:id', async (req) => {
+  const result = await commitToDb(
+    prisma.salesPerson.findUnique({
+      where: {
+        id: req.params.id,
+      },
+      select: {
+        firstName: true,
+        lastName: true,
+        address: true,
+        phone: true,
+        startDate: true,
+        terminationDate: true,
+        manager: {
+          select: {
+            firstName: true,
+            lastName: true
+          }
+        },
+        employees: {
+          select: {
+            firstName: true,
+            lastName: true
+          }
+        }
+      },
+    })
+  );
+  return result;
+});
+
 app.listen({ port: process.env.PORT });
