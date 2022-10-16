@@ -24,7 +24,9 @@ const SalesPersonList = () => {
   return salesPeople?.map((salesPerson) => {
     return (
       <h1 key={salesPerson?.id}>
-        <Link to={`/sales-people/${salesPerson?.id}`}>{salesPerson?.name}</Link>
+        <Link to={`/sales-people/${salesPerson?.id}`}>
+          {salesPerson?.firstName} {salesPerson?.lastName}
+        </Link>
       </h1>
     );
   });
