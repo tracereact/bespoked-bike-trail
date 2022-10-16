@@ -105,7 +105,8 @@ app.get('/sales-people', async () => {
     prisma.salesPerson.findMany({
       select: {
         id: true,
-        name: true,
+        firstName: true,
+        lastName: true,
       },
     })
   );
