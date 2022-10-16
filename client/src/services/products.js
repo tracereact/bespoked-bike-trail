@@ -1,7 +1,13 @@
 import makeRequest from './makeRequest';
 
+// Get list of all products
 const getProducts = () => {
   return makeRequest('/products');
 };
 
-export default getProducts;
+// Get a single product
+const getProduct = (id) => {
+  return makeRequest(`/products/${id}`);
+};
+
+export { getProducts, getProduct };
