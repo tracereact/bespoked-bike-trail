@@ -41,4 +41,62 @@ app.get('/products', async () => {
   return result;
 });
 
+// Get individual product
+app.get('/products/:id', async (req) => {
+  const result = await commitToDb(
+    prisma.product.findUnique({
+      where: {
+        id: req.params.id,
+      },
+      select: {
+        name: true,
+        manufacturer: true,
+        style: true,
+        purchasePrice: true,
+        salePrice: true,
+        qtyOnHand: true,
+        commissionPercentage: true,
+        sales : {
+          orderBy: {
+            salesDate: 'desc',
+          },
+          select: {
+            customer: {
+              select: {
+                id: true,
+                firstName: true,
+                lastName: true,
+                address: true,
+                phone: true
+              },
+            },
+            salesPerson: {
+              select: {
+                id: true,
+                firstName: true,
+                lastName: true,
+                address: true,
+                phone: true
+              },
+            },
+            salesDate: true,
+          },
+        },
+        discounts: {
+          orderBy: {
+            beginDate: 'desc',
+          },
+          select: {
+            id: true,
+            beginDate: true,
+            endDate: true,
+            discountPercentage: true
+          },
+        },
+      },
+    })
+  );
+  return result;
+});
+
 app.listen({ port: process.env.PORT });
