@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { useAsync } from '../hooks/useAsync';
-import getProducts from '../services/products';
+import { getProducts } from '../services/products';
 
 const StyledError = styled.h1`
   color: red;

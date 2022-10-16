@@ -12,7 +12,14 @@ const App = () => {
     <StyledContainer>
       <Routes>
         <Route path="/" element={<ProductList />} />
-        <Route path="/products/:id" element={null} />
+        <Route
+          path="/products/:id"
+          element={
+            <ProductProvider>
+              <Product />
+            </ProductProvider>
+          }
+        />
       </Routes>
     </StyledContainer>
   );
