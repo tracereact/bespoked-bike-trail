@@ -1,13 +1,25 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
+import styled from 'styled-components';
+import { useAsync } from '../hooks/useAsync';
 import getProducts from '../services/products';
 
-const ProductList = () => {
-  const [products, setProducts] = useState();
+const StyledError = styled.h1`
+  color: red;
+`;
 
-  useEffect(() => {
-    getProducts().then(setProducts);
-  }, []);
+const ProductList = () => {
+  const {loading, error, value: products} = useAsync(getProducts);
+
+  // Check if data is loading
+  if (loading) {
+    return <h1>Loading...</h1>;
+  }
+
+  // Check if there is an error
+  if (error) {
+    return <StyledError>{error}</StyledError> ;
+  }
 
   return products?.map((product) => {
     return (
