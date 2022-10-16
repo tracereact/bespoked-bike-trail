@@ -1,5 +1,3 @@
-const Product = () => {
-  
-};
+const Product = () => {};
 
 export default Product;
