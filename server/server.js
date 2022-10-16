@@ -130,15 +130,15 @@ app.get('/sales-people/:id', async (req) => {
         manager: {
           select: {
             firstName: true,
-            lastName: true
-          }
+            lastName: true,
+          },
         },
         employees: {
           select: {
             firstName: true,
-            lastName: true
-          }
-        }
+            lastName: true,
+          },
+        },
       },
     })
   );

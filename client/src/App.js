@@ -14,12 +14,12 @@ const App = () => {
   return (
     <StyledContainer>
       <Routes>
-        <Route 
-          path="/" 
+        <Route
+          path="/"
           element={
             <>
-            <ProductList />
-            <SalesPersonList />
+              <ProductList />
+              <SalesPersonList />
             </>
           }
         />
