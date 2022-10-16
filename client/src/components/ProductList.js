@@ -8,10 +8,10 @@ const ProductList = () => {
     getProducts().then(setProducts);
   }, []);
 
-  return products.map(product => {
+  return products?.map(product => {
     return (
-      <h1 key={product.id}>
-        <a href={`/products/${product.id}`}>{product.name}</a>
+      <h1 key={product?.id}>
+        <a href={`/products/${product?.id}`}>{product?.name}</a>
       </h1>
     );
   });
