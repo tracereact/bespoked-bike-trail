@@ -1,13 +1,20 @@
 import React from 'react';
 import { Route, Routes } from 'react-router-dom';
+import styled from 'styled-components';
 import ProductList from './components/ProductList';
+
+const StyledContainer = styled.div`
+  padding: 2rem;
+`;
 
 const App = () => {
   return (
-    <Routes>
-      <Route path="/" element={<ProductList />} />
-      <Route path="/products/:id" element={null} />
-    </Routes>
+    <StyledContainer>
+      <Routes>
+        <Route path="/" element={<ProductList />} />
+        <Route path="/products/:id" element={null} />
+      </Routes>
+    </StyledContainer>
   );
 };
 
