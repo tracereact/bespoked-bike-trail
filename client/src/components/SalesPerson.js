@@ -1,33 +1,34 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
-import styled from 'styled-components';
-import { useAsync } from '../hooks/useAsync';
-import { getSalesPeople } from '../services/salesPeople';
+import { useSalesPerson } from '../contexts/SalesPersonContext';
 
-const StyledError = styled.h1`
-  color: red;
-`;
+const SalesPerson = () => {
+  const { salesPerson } = useSalesPerson();
 
-const ProductList = () => {
-  const { loading, error, value: products } = useAsync(getSalesPeople);
-
-  // Check if data is loading
-  if (loading) {
-    return <h1>Loading...</h1>;
-  }
-
-  // Check if there is an error
-  if (error) {
-    return <StyledError>{error}</StyledError>;
-  }
-
-  return products?.map((product) => {
-    return (
-      <h1 key={product?.id}>
-        <Link to={`/products/${product?.id}`}>{product?.name}</Link>
-      </h1>
-    );
-  });
+  return (
+    <table>
+      <thead>
+        <tr>
+          <td colSpan={2}>
+            {salesPerson.firstName} {salesPerson.lastName}
+          </td>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Address</td>
+          <td>{salesPerson.address}</td>
+        </tr>
+        <tr>
+          <td>Phone Number</td>
+          <td>{salesPerson.phone}</td>
+        </tr>
+        <tr>
+          <td>Start Date</td>
+          <td>{salesPerson.startDate}</td>
+        </tr>
+      </tbody>
+    </table>
+  );
 };
 
-export default ProductList;
+export default SalesPerson;
