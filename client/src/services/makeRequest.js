@@ -5,13 +5,13 @@ const api = axios.create({
   baseURL: process.env.REACT_APP_SERVER_URL,
 
   // Using cookies to store user information
-  withCredentials: true
+  withCredentials: true,
 });
 
 /**
  * Helper function to make all axios requests
- * @param {*} url 
- * @param {*} options 
+ * @param {*} url
+ * @param {*} options
  * @returns axios instance
  */
 const makeRequest = (url, options) => {
