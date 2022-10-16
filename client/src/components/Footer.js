@@ -5,9 +5,11 @@ const StyledFooter = styled.footer`
   text-align: center;
   font-size: 0.875rem;
   padding: 1rem 0;
-  background-color: lightgrey;
-  opacity: 0.75;
+  font-weight: bold;
   width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
 `;
 
 const Footer = () => {
@@ -15,7 +17,7 @@ const Footer = () => {
     <StyledFooter className="footer">
       <div className="copyright">Copyright &copy; BeSpoked Bikes</div>
       <div className="disclaimer">
-        Web App built by&nbsp;
+        Application built by&nbsp;
         <span>
           <a href="https://tracereact.com" target="_blank" rel="noreferrer">
             Trace React

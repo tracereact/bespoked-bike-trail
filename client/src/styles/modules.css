@@ -2,7 +2,13 @@
 
 .modules {
   display: grid;
-
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(2, 1fr);
+  min-height: 100%;
+  min-width: 100%;
+  padding: 2rem;
+  gap: 2rem;
+  
   /* Testing */
   border: 2px solid green;
 }
@@ -12,5 +18,5 @@
 }
 
 .module .title {
-  font-size: 2rem;
+  font-size: 1.5rem;
 }
