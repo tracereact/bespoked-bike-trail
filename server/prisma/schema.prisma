@@ -20,21 +20,23 @@ model Product {
   qtyOnHand             String
   commissionPercentage  String
 
-  sales                 Sales[]
+  sales                 Sale[]
   discounts             Discount[]
 }
 
 model SalesPerson {
-  id              String    @id @default(uuid())
+  id              String        @id @default(uuid())
   firstName       String
   lastName        String
   address         String
   phone           String
-  startDate       DateTime  @default(now())
-  terminationDate DateTime
-  manager         String
+  startDate       DateTime      @default(now())
+  terminationDate DateTime?
+  manager         SalesPerson?  @relation(name: "ManagerEmployee", fields: [managerId], references: [id])
+  managerId       String?
+  employees       SalesPerson[] @relation(name: "ManagerEmployee")
 
-  sales           Sales[]
+  sales           Sale[]
 }
 
 model Customer {
@@ -45,10 +47,10 @@ model Customer {
   phone     String
   startDate DateTime  @default(now())
 
-  sales     Sales[]
+  sales     Sale[]
 }
 
-model Sales {
+model Sale {
   product       Product     @relation(fields: [productId], references: [id])
   productId     String
   salesPerson   SalesPerson @relation(fields: [salesPersonId], references: [id])
@@ -65,6 +67,6 @@ model Discount {
   product             Product   @relation(fields: [productId], references: [id])
   productId           String
   beginDate           DateTime  @default(now())
-  endDate             DateTime
+  endDate             DateTime?
   discountPercentage  String
 }
