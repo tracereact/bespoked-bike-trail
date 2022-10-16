@@ -13,10 +13,7 @@ const StyledHeader = styled.header`
 const Header = () => {
   return (
     <StyledHeader className="header">
-
-          <a href="/">
-            Bike Trail
-          </a>
+      <a href="/">Bike Trail</a>
     </StyledHeader>
   );
 };

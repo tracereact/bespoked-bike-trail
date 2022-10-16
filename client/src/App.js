@@ -10,7 +10,7 @@ import SalesPerson from './components/SalesPerson';
 import Footer from './components/Footer';
 import Header from './components/Header';
 
-const StyledContainer = styled.div`  
+const StyledContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
