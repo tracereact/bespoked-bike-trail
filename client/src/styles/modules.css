@@ -1,7 +1,7 @@
 @import url(./global.css);
 
 .modules {
-  
+  display: grid;
 
   /* Testing */
   border: 2px solid green;

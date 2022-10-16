@@ -7,14 +7,22 @@ import Product from './components/Product';
 import SalesPersonList from './components/SalesPersonList';
 import { SalesPersonProvider } from './contexts/SalesPersonContext';
 import SalesPerson from './components/SalesPerson';
+import Footer from './components/Footer';
+import Header from './components/Header';
 
-const StyledContainer = styled.div`
-  padding: 2rem;
+const StyledContainer = styled.div`  
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 100vh;
+  min-width: 100%;
 `;
 
 const App = () => {
   return (
     <StyledContainer>
+      <Header />
       <Routes>
         <Route
           path="/"
@@ -42,6 +50,7 @@ const App = () => {
           }
         />
       </Routes>
+      <Footer />
     </StyledContainer>
   );
 };
