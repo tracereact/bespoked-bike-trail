@@ -9,7 +9,7 @@ const StyledError = styled.h1`
 `;
 
 const ProductList = () => {
-  const {loading, error, value: products} = useAsync(getProducts);
+  const { loading, error, value: products } = useAsync(getProducts);
 
   // Check if data is loading
   if (loading) {
@@ -18,7 +18,7 @@ const ProductList = () => {
 
   // Check if there is an error
   if (error) {
-    return <StyledError>{error}</StyledError> ;
+    return <StyledError>{error}</StyledError>;
   }
 
   return products?.map((product) => {
