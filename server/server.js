@@ -56,7 +56,7 @@ app.get('/products/:id', async (req) => {
         salePrice: true,
         qtyOnHand: true,
         commissionPercentage: true,
-        sales : {
+        sales: {
           orderBy: {
             salesDate: 'desc',
           },
@@ -67,7 +67,7 @@ app.get('/products/:id', async (req) => {
                 firstName: true,
                 lastName: true,
                 address: true,
-                phone: true
+                phone: true,
               },
             },
             salesPerson: {
@@ -76,7 +76,7 @@ app.get('/products/:id', async (req) => {
                 firstName: true,
                 lastName: true,
                 address: true,
-                phone: true
+                phone: true,
               },
             },
             salesDate: true,
@@ -90,7 +90,7 @@ app.get('/products/:id', async (req) => {
             id: true,
             beginDate: true,
             endDate: true,
-            discountPercentage: true
+            discountPercentage: true,
           },
         },
       },
