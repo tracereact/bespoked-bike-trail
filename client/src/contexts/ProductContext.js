@@ -1,20 +1,28 @@
-import React from 'react';
+import React, { useContext } from 'react';
+import { useParams } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import { useAsync, useParams } from '../hooks/useAsync';
-import { getProduct, getProducts } from '../services/products';
+import { useAsync } from '../hooks/useAsync';
+import { getProduct } from '../services/products';
 
 const Context = React.createContext();
 
+const useProduct = () => {
+  return useContext(Context);
+};
+
 const ProductProvider = ({ children }) => {
-  const { id } = useParams();
+  const { id } = useParams(); // Get id from caller
+
+  // Use custom hook to get product info safely
   const {
     loading,
     error,
     value: product,
   } = useAsync(() => {
-    getProducts(id);
+    return getProduct(id);
   }, [id]);
 
+  // Determine what should be shown based on product info received
   let ctx;
   if (loading) ctx = <h1>Loading...</h1>;
   else if (error) ctx = <h1>{error}</h1>;
@@ -37,4 +45,4 @@ ProductProvider.propTypes = {
   children: PropTypes.element.isRequired,
 };
 
-export default ProductProvider;
+export { useProduct, ProductProvider };

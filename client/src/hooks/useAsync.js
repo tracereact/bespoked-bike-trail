@@ -11,6 +11,7 @@ const useAsyncInternal = (func, dependencies, initialLoading = false) => {
 
   const execute = useCallback((...params) => {
     setLoading(true);
+
     return func(...params)
       .then((data) => {
         setValue(data);
@@ -24,7 +25,7 @@ const useAsyncInternal = (func, dependencies, initialLoading = false) => {
         setError(err);
 
         // Return error so that is can be used at a later time
-        return Promise.reject(err);
+        return Promise.reject(error);
       })
       .finally(() => {
         setLoading(false);

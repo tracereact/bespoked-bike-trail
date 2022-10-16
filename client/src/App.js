@@ -2,6 +2,8 @@ import React from 'react';
 import { Route, Routes } from 'react-router-dom';
 import styled from 'styled-components';
 import ProductList from './components/ProductList';
+import { ProductProvider } from './contexts/ProductContext';
+import Product from './components/Product';
 
 const StyledContainer = styled.div`
   padding: 2rem;
