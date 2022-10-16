@@ -1,4 +1,5 @@
 import React, {useEffect, useState} from 'react';
+import { Link } from 'react-router-dom';
 import getProducts from '../services/products';
 
 const ProductList = () => {
@@ -11,7 +12,7 @@ const ProductList = () => {
   return products?.map(product => {
     return (
       <h1 key={product?.id}>
-        <a href={`/products/${product?.id}`}>{product?.name}</a>
+        <Link to={`/products/${product?.id}`}>{product?.name}</Link>
       </h1>
     );
   });
