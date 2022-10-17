@@ -30,17 +30,17 @@ const SaleList = () => {
         </tr>
       </thead>
       <tbody>
-        <tr>
-          <td className="entry">
-            {sales?.map((sale) => {
-              return (
-                <p key={sale?.id}>
-                  <Link to={`/sales/${sale?.id}`}>{sale?.id}</Link>
-                </p>
-              );
-            })}
-          </td>
-        </tr>
+        {sales?.map((sale) => {
+          return (
+            <tr key={sale?.id}>
+              <td>{sale.product.name}</td>
+              <td>
+                <Link to={`/sales/${sale?.id}`}>{sale?.id}</Link>
+              </td>
+              <td>{null}</td>
+            </tr>
+          );
+        })}
       </tbody>
     </table>
   );
