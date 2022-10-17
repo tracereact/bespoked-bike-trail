@@ -15,7 +15,7 @@ const StyledFooter = styled.footer`
 const Footer = () => {
   return (
     <StyledFooter className="footer">
-      <div className="copyright">Copyright &copy; BeSpoked Bikes</div>
+      <div className="copyright">Copyright &copy; BeSpoked Bikes 2022</div>
       <div className="disclaimer">
         Application built by&nbsp;
         <span>
