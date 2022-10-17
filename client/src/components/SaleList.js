@@ -26,18 +26,39 @@ const SaleList = () => {
     <table className="module sale-list">
       <thead>
         <tr>
-          <td className="title">Sales</td>
+          <td className="title" colSpan={6}>
+            Sales
+          </td>
         </tr>
       </thead>
       <tbody>
+        <tr>
+          <th>Product</th>
+          <th>Customer</th>
+          <th>Date</th>
+          <th>Price</th>
+          <th>Sales Person</th>
+          <th>Commission</th>
+        </tr>
         {sales?.map((sale) => {
           return (
             <tr key={sale?.id}>
-              <td>{sale.product.name}</td>
-              <td>
-                <Link to={`/sales/${sale?.id}`}>{sale?.id}</Link>
+              <td className="product">
+                <Link to={`/products/${sale?.productId}`}>
+                  {sale?.product?.name}
+                </Link>
               </td>
-              <td>{null}</td>
+              <td className="customer">{null}</td>
+              <td className="date">{sale?.salesDate}</td>
+              <td className="price">{sale?.product?.salePrice}</td>
+              <td className="sales-person">
+                <Link
+                  to={`/sales-people/${sale?.salesPersonId}`}
+                >{`${sale?.salesPerson?.firstName} ${sale?.salesPerson?.firstName}`}</Link>
+              </td>
+              <td className="commission">
+                {sale?.product?.commissionPercentage}
+              </td>
             </tr>
           );
         })}
