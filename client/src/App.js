@@ -9,6 +9,7 @@ import { SalesPersonProvider } from './contexts/SalesPersonContext';
 import SalesPerson from './components/SalesPerson';
 import Footer from './components/Footer';
 import Header from './components/Header';
+import SaleList from './components/SaleList';
 
 const StyledContainer = styled.div`
   display: flex;
@@ -30,6 +31,7 @@ const App = () => {
             <div className="modules">
               <ProductList />
               <SalesPersonList />
+              <SaleList />
             </div>
           }
         />
