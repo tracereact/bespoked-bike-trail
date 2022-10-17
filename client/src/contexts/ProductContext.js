@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { useAsync } from '../hooks/useAsync';
 import { getProduct } from '../services/products';
+import Loader from '../components/Loader';
 
 const Context = React.createContext();
 
@@ -24,7 +25,7 @@ const ProductProvider = ({ children }) => {
 
   // Determine what should be shown based on product info received
   let ctx;
-  if (loading) ctx = <h1>Loading...</h1>;
+  if (loading) ctx = <Loader />;
   else if (error) ctx = <h1>{error}</h1>;
   else ctx = children;
 

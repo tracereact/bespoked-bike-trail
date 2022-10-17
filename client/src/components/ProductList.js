@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { useAsync } from '../hooks/useAsync';
 import { getProducts } from '../services/products';
+import Loader from './Loader';
 
 const StyledError = styled.h1`
   color: red;
@@ -13,7 +14,7 @@ const ProductList = () => {
 
   // Check if data is loading
   if (loading) {
-    return <h1>Loading...</h1>;
+    return <Loader />;
   }
 
   // Check if there is an error
