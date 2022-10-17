@@ -48,7 +48,11 @@ const SaleList = () => {
                   {sale?.product?.name}
                 </Link>
               </td>
-              <td className="customer">{null}</td>
+              <td className="customer">
+                <Link
+                  to={`/customers/${sale?.customerId}`}
+                >{`${sale?.customer?.firstName} ${sale?.customer?.firstName}`}</Link>
+              </td>
               <td className="date">{sale?.salesDate}</td>
               <td className="price">{sale?.product?.salePrice}</td>
               <td className="sales-person">
