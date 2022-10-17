@@ -15,5 +15,5 @@ npm run devStart
 - <b>Note</b>: On changes to prisma settings, run:
 
 ```
-prisma migrate dev --name init
+npx prisma migrate dev --name init
 ```
