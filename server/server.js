@@ -153,10 +153,26 @@ app.get('/sales', async () => {
     prisma.sale.findMany({
       select: {
         id: true,
-        productId: true,
-        salesPersonId: true,
-        customerId: true,
-        salesDate: true
+        salesDate: true,
+        product: {
+          select: {
+            name: true,
+            salePrice: true,
+            commissionPercentage: true,
+          },
+        },
+        customer: {
+          select: {
+            firstName: true,
+            lastName: true,
+          },
+        },
+        salesPerson: {
+          select: {
+            firstName: true,
+            lastName: true,
+          },
+        },
       },
     })
   );
