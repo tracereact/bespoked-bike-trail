@@ -35,7 +35,7 @@ const SaleList = () => {
             {sales?.map((sale) => {
               return (
                 <p key={sale?.id}>
-                  <Link to={`/sales/${sale?.id}`}>{sale?.productId}</Link>
+                  <Link to={`/sales/${sale?.id}`}>{sale?.id}</Link>
                 </p>
               );
             })}
