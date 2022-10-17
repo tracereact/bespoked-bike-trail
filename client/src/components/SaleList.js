@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import { useAsync } from '../hooks/useAsync';
 import { getSales } from '../services/sales';
 import Loader from './Loader';
+import '../styles/sales.css';
 
 const StyledError = styled.h1`
   color: red;
@@ -32,35 +33,35 @@ const SaleList = () => {
         </tr>
       </thead>
       <tbody>
-        <tr>
-          <th>Product</th>
-          <th>Customer</th>
-          <th>Date</th>
-          <th>Price</th>
-          <th>Sales Person</th>
-          <th>Commission</th>
+        <tr className="header row">
+          <th className="col-1">Product</th>
+          <th className="col-2">Customer</th>
+          <th className="col-3">Date</th>
+          <th className="col-4">Price</th>
+          <th className="col-5">Sales Person</th>
+          <th className="col-6">Commission</th>
         </tr>
         {sales?.map((sale) => {
           return (
-            <tr key={sale?.id}>
-              <td className="product">
+            <tr className="row" key={sale?.id}>
+              <td className="col-1 product">
                 <Link to={`/products/${sale?.productId}`}>
                   {sale?.product?.name}
                 </Link>
               </td>
-              <td className="customer">
+              <td className="col-2 customer">
                 <Link
                   to={`/customers/${sale?.customerId}`}
                 >{`${sale?.customer?.firstName} ${sale?.customer?.firstName}`}</Link>
               </td>
-              <td className="date">{sale?.salesDate}</td>
-              <td className="price">{sale?.product?.salePrice}</td>
-              <td className="sales-person">
+              <td className="col-3 date">{sale?.salesDate}</td>
+              <td className="col-4 price">{sale?.product?.salePrice}</td>
+              <td className="col-5 sales-person">
                 <Link
                   to={`/sales-people/${sale?.salesPersonId}`}
                 >{`${sale?.salesPerson?.firstName} ${sale?.salesPerson?.firstName}`}</Link>
               </td>
-              <td className="commission">
+              <td className="col-6 commission">
                 {sale?.product?.commissionPercentage}
               </td>
             </tr>
