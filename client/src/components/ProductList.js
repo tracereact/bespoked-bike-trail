@@ -23,7 +23,7 @@ const ProductList = () => {
   }
 
   return (
-    <table className="module">
+    <table className="module product-list">
       <thead>
         <tr>
           <td className="title">Inventory</td>

@@ -23,7 +23,7 @@ const SalesPersonList = () => {
   }
 
   return (
-    <table className="module">
+    <table className="module sales-person-list">
       <thead>
         <tr>
           <td className="title">Sales People</td>
