@@ -30,17 +30,15 @@ const ProductList = () => {
         </tr>
       </thead>
       <tbody>
-        <tr>
-          <td className="entry">
-            {products?.map((product) => {
-              return (
-                <p key={product?.id}>
+        {products?.map((product) => {
+          return (
+            <tr key={product?.id}>
+              <td className="entry">
                   <Link to={`/products/${product?.id}`}>{product?.name}</Link>
-                </p>
-              );
-            })}
-          </td>
-        </tr>
+              </td>
+            </tr>
+          );
+        })}
       </tbody>
     </table>
   );
