@@ -147,6 +147,18 @@ app.get('/sales-people/:id', async (req) => {
   return result;
 });
 
+// List sales
+app.get('/sales', async () => {
+  const result = await commitToDb(
+    prisma.sale.findMany({
+      select: {
+        productId: true
+      },
+    })
+  );
+  return result;
+});
+
 /* ------------------ POSTs ------------------ */
 
 // Add new product
