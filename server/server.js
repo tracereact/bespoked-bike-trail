@@ -147,6 +147,39 @@ app.get('/sales-people/:id', async (req) => {
   return result;
 });
 
+// List customers
+app.get('/customers', async () => {
+  const result = await commitToDb(
+    prisma.customer.findMany({
+      select: {
+        id: true,
+        firstName: true,
+        lastName: true,
+      },
+    })
+  );
+  return result;
+});
+
+// Get individual sales person
+app.get('/customers/:id', async (req) => {
+  const result = await commitToDb(
+    prisma.customer.findUnique({
+      where: {
+        id: req.params.id,
+      },
+      select: {
+        firstName: true,
+        lastName: true,
+        address: true,
+        phone: true,
+        startDate: true,
+      },
+    })
+  );
+  return result;
+});
+
 // List sales
 app.get('/sales', async () => {
   const result = await commitToDb(
