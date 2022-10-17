@@ -14,7 +14,7 @@ const useSalesPerson = () => {
 const SalesPersonProvider = ({ children }) => {
   const { id } = useParams(); // Get id from caller
 
-  // Use custom hook to get product info safely
+  // Use custom hook to get sales person info safely
   const {
     loading,
     error,
@@ -23,7 +23,7 @@ const SalesPersonProvider = ({ children }) => {
     return getSalesPerson(id);
   }, [id]);
 
-  // Determine what should be shown based on product info received
+  // Determine what should be shown based on sales person info received
   let ctx;
   if (loading) ctx = <Loader />;
   else if (error) ctx = <h1>{error}</h1>;
