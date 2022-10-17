@@ -152,7 +152,11 @@ app.get('/sales', async () => {
   const result = await commitToDb(
     prisma.sale.findMany({
       select: {
+        id: true,
         productId: true,
+        salesPersonId: true,
+        customerId: true,
+        salesDate: true
       },
     })
   );

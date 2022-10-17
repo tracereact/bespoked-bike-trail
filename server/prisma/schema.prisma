@@ -51,6 +51,7 @@ model Customer {
 }
 
 model Sale {
+  id            String      @id @default(uuid())           
   product       Product     @relation(fields: [productId], references: [id])
   productId     String
   salesPerson   SalesPerson @relation(fields: [salesPersonId], references: [id])
@@ -58,8 +59,6 @@ model Sale {
   customer      Customer    @relation(fields: [customerId], references: [id])
   customerId    String
   salesDate     DateTime    @default(now())
-
-  @@id([customerId, productId])
 }
 
 model Discount {
