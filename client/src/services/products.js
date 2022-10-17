@@ -10,4 +10,9 @@ const getProduct = (id) => {
   return makeRequest(`/products/${id}`);
 };
 
-export { getProducts, getProduct };
+// Add a single product
+const addProduct = (id) => {
+  return makeRequest(`/products/${id}`);
+};
+
+export { getProducts, getProduct, addProduct };
