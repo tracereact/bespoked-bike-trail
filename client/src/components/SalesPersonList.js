@@ -30,19 +30,17 @@ const SalesPersonList = () => {
         </tr>
       </thead>
       <tbody>
-        <tr>
-          <td className="entry">
-            {salesPeople?.map((salesPerson) => {
-              return (
-                <p key={salesPerson?.id}>
-                  <Link to={`/sales-people/${salesPerson?.id}`}>
-                    {salesPerson?.firstName} {salesPerson?.lastName}
-                  </Link>
-                </p>
-              );
-            })}
-          </td>
-        </tr>
+        {salesPeople?.map((salesPerson) => {
+          return (
+            <tr key={salesPerson?.id}>
+              <td className="entry">
+                <Link to={`/sales-people/${salesPerson?.id}`}>
+                  {salesPerson?.firstName} {salesPerson?.lastName}
+                </Link>
+              </td>
+            </tr>
+          );
+        })}
       </tbody>
     </table>
   );

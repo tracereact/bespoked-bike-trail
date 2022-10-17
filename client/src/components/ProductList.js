@@ -34,7 +34,7 @@ const ProductList = () => {
           return (
             <tr key={product?.id}>
               <td className="entry">
-                  <Link to={`/products/${product?.id}`}>{product?.name}</Link>
+                <Link to={`/products/${product?.id}`}>{product?.name}</Link>
               </td>
             </tr>
           );
