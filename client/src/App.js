@@ -10,6 +10,9 @@ import SalesPerson from './components/SalesPerson';
 import Footer from './components/Footer';
 import Header from './components/Header';
 import SaleList from './components/SaleList';
+import CustomerList from './components/CustomerList';
+import { CustomerProvider } from './contexts/CustomerContext';
+import Customer from './components/Customer';
 
 const StyledContainer = styled.div`
   display: flex;
@@ -29,8 +32,9 @@ const App = () => {
           path="/"
           element={
             <div className="modules">
-              <ProductList />
               <SalesPersonList />
+              <ProductList />
+              <CustomerList />
               <SaleList />
             </div>
           }
@@ -49,6 +53,14 @@ const App = () => {
             <SalesPersonProvider>
               <SalesPerson />
             </SalesPersonProvider>
+          }
+        />
+        <Route
+          path="/customers/:id"
+          element={
+            <CustomerProvider>
+              <Customer />
+            </CustomerProvider>
           }
         />
       </Routes>
