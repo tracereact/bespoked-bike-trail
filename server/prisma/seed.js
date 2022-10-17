@@ -5,7 +5,7 @@ const prisma = new PrismaClient();
 /**
  * Feed database with initial values
  */
-async function seed() {
+const seed = async () => {
   await prisma.product.deleteMany();
   await prisma.salesPerson.deleteMany();
   await prisma.customer.deleteMany();
@@ -111,6 +111,6 @@ async function seed() {
       discountPercentage: '10%',
     },
   });
-}
+};
 
 seed();
