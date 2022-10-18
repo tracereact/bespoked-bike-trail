@@ -7,7 +7,7 @@ import AddButton from './AddButton';
 import AddNew from './AddNew';
 import Loader from './Loader';
 
-const StyledError = styled.h1`
+const StyledError = styled.p`
   color: red;
 `;
 

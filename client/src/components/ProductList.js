@@ -5,7 +5,7 @@ import { useAsync } from '../hooks/useAsync';
 import { getProducts } from '../services/products';
 import Loader from './Loader';
 
-const StyledError = styled.h1`
+const StyledError = styled.p`
   color: red;
 `;
 
