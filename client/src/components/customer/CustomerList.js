@@ -34,14 +34,13 @@ const CustomerList = () => {
       <thead>
         <tr>
           <td className="title">
-            Customers&nbsp;
+            Customers{' '}
             <AddButton
               onButtonClicked={() => {
                 setAddActive(true);
               }}
             />
-            <AddNew type="customer" active={addActive} />
-            &nbsp;
+            <AddNew type="customer" active={addActive} />{' '}
             <EditButton
               onButtonClicked={() => {
                 setEditActive(true);

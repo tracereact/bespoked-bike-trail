@@ -37,6 +37,12 @@ app.get('/products', async () => {
       select: {
         id: true,
         name: true,
+        manufacturer: true,
+        style: true,
+        purchasePrice: true,
+        salePrice: true,
+        qtyOnHand: true,
+        commissionPercentage: true,
       },
     })
   );
@@ -272,6 +278,30 @@ app.put('/customers/:id', async (req, res) => {
         lastName: req.body.lastName,
         address: req.body.address,
         phone: req.body.phone,
+      },
+    })
+  );
+
+  return result;
+});
+
+// Update product
+app.put('/products/:id', async (req, res) => {
+  if (!req.body || req.body === '') {
+    return res.send(app.httpErrors.badRequest('Information is required'));
+  }
+
+  const result = await commitToDb(
+    prisma.product.update({
+      where: { id: req.params.id },
+      data: {
+        name: req.body.name,
+        manufacturer: req.body.manufacturer,
+        style: req.body.style,
+        purchasePrice: req.body.purchasePrice,
+        salePrice: req.body.salePrice,
+        qtyOnHand: req.body.qtyOnHand,
+        commissionPercentage: req.body.commissionPercentage,
       },
     })
   );

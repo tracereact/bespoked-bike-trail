@@ -15,4 +15,12 @@ const addProduct = (id) => {
   return makeRequest(`/products/${id}`);
 };
 
-export { getProducts, getProduct, addProduct };
+// Update a single product
+const updateProduct = (id, data) => {
+  return makeRequest(`/products/${id}`, {
+    method: 'PUT',
+    data,
+  });
+};
+
+export { getProducts, getProduct, addProduct, updateProduct };

@@ -1,9 +1,13 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { useAsync } from '../../hooks/useAsync';
 import { getProducts } from '../../services/products';
 import Loader from '../utils/Loader';
+import AddButton from '../utils/AddButton';
+import AddNew from '../utils/AddNew';
+import EditButton from '../utils/EditButton';
+import Edit from '../utils/Edit';
 
 const StyledError = styled.p`
   color: red;
@@ -11,6 +15,9 @@ const StyledError = styled.p`
 
 const ProductList = () => {
   const { loading, error, value: products } = useAsync(getProducts);
+
+  const [addActive, setAddActive] = useState(false);
+  const [editActive, setEditActive] = useState(false);
 
   // Check if data is loading
   if (loading) {
@@ -26,7 +33,21 @@ const ProductList = () => {
     <table className="module product-list">
       <thead>
         <tr>
-          <td className="title">Inventory</td>
+          <td className="title">
+            Inventory{' '}
+            <AddButton
+              onButtonClicked={() => {
+                setAddActive(true);
+              }}
+            />
+            <AddNew type="product" active={addActive} />{' '}
+            <EditButton
+              onButtonClicked={() => {
+                setEditActive(true);
+              }}
+            />
+            <Edit type="product" list={products} active={editActive} />
+          </td>
         </tr>
       </thead>
       <tbody>
