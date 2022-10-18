@@ -2,20 +2,19 @@
 import React, { useEffect, useState } from 'react';
 import '../../styles/form.css';
 import PropTypes from 'prop-types';
-import { addCustomer } from '../../services/customers';
+import { addProduct } from '../../services/products';
 import { useAsyncFn } from '../../hooks/useAsync';
 
-const CustomerForm = ({ initialValue, isActive }) => {
-  const [firstName, setFirstName] = useState('');
-  const [lastName, setLastName] = useState('');
-  const [address, setAddress] = useState('');
-  const [apt, setApt] = useState('');
-  const [city, setCity] = useState('');
-  const [state, setState] = useState('');
-  const [zipCode, setZipCode] = useState('');
-  const [phone, setPhone] = useState('');
+const ProductForm = ({ isActive }) => {
+  const [name, setName] = useState('');
+  const [manufacturer, setManufacturer] = useState('');
+  const [style, setStyle] = useState('');
+  const [purchasePrice, setPurchasePrice] = useState('');
+  const [salePrice, setSalePrice] = useState('');
+  const [qtyOnHand, setQtyOnHand] = useState('');
+  const [commissionPercentage, setCommissionPercentage] = useState('');
 
-  const { loading, error, execute: addCustomerFn } = useAsyncFn(addCustomer);
+  const { loading, error, execute: addProductFn } = useAsyncFn(addProduct);
 
   const [active, setActive] = useState(isActive);
 
@@ -28,23 +27,26 @@ const CustomerForm = ({ initialValue, isActive }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
     const submission = {
-      firstName: firstName,
-      lastName: lastName,
-      address: `${address} ${apt}, ${city}, ${state}, ${zipCode}`,
-      phone: phone,
+      name: name,
+      manufacturer: manufacturer,
+      style: style,
+      purchasePrice: purchasePrice,
+      salePrice: salePrice,
+      qtyOnHand: qtyOnHand,
+      commissionPercentage: commissionPercentage,
     };
 
     // Submit data then clear form inputs and hide form
-    addCustomerFn(submission).then(() => {
-      setFirstName(initialValue);
-      setLastName(initialValue);
-      setAddress(initialValue);
-      setApt(initialValue);
-      setCity(initialValue);
-      setState(initialValue);
-      setZipCode(initialValue);
-      setPhone(initialValue);
+    addProductFn(submission).then(() => {
+      setName('');
+      setManufacturer('');
+      setStyle('');
+      setPurchasePrice('');
+      setSalePrice('');
+      setQtyOnHand('');
+      setCommissionPercentage('');
 
+      // Hide form
       setActive(false);
     });
   };
@@ -52,106 +54,92 @@ const CustomerForm = ({ initialValue, isActive }) => {
   return (
     <div className={`form-container ${active ? 'active' : ''}`}>
       <form method="post" onSubmit={handleSubmit}>
-        <div className="title">Add New Customer</div>
+        <div className="title">Add Product</div>
         <input
           type="text"
-          id="firstName"
-          name="firstName"
-          pattern="[A-zÀ-ž -]+"
-          minLength="2"
-          placeholder="First Name"
-          value={firstName}
-          onChange={(e) => {
-            return setFirstName(e.target.value);
-          }}
-          required
-        />
-        <input
-          type="text"
-          id="lastName"
-          name="lastName"
-          pattern="[A-zÀ-ž -]+"
-          minLength="2"
-          placeholder="Last Name"
-          value={lastName}
-          onChange={(e) => {
-            return setLastName(e.target.value);
-          }}
-          required
-        />
-        <input
-          type="text"
-          id="address"
-          name="address"
+          id="name"
+          name="name"
           pattern="[a-zA-Z0-9\s,'-]*$"
           minLength="2"
-          placeholder="Address"
-          value={address}
+          placeholder="Name"
+          value={name}
           onChange={(e) => {
-            return setAddress(e.target.value);
+            return setName(e.target.value);
           }}
           required
         />
         <input
           type="text"
-          id="apt"
-          name="apt"
-          pattern="[A-zÀ-ž -]+"
+          id="manufacturer"
+          name="manufacturer"
+          pattern="[a-zA-Z0-9\s,'-]*$"
           minLength="2"
-          placeholder="Apartment, suite, etc."
-          value={apt}
+          placeholder="Manufacturer"
+          value={manufacturer}
           onChange={(e) => {
-            return setApt(e.target.value);
+            return setManufacturer(e.target.value);
           }}
+          required
         />
         <input
           type="text"
-          id="city"
-          name="city"
-          pattern="[A-zÀ-ž -]+"
+          id="style"
+          name="style"
+          pattern="[a-zA-Z0-9\s,'-]*$"
           minLength="2"
-          placeholder="City"
-          value={city}
+          placeholder="Style"
+          value={style}
           onChange={(e) => {
-            return setCity(e.target.value);
+            return setStyle(e.target.value);
           }}
           required
         />
         <input
           type="text"
-          id="state"
-          name="state"
-          pattern="[A-zÀ-ž -]+"
+          id="purchasePrice"
+          name="purchasePrice"
           minLength="2"
-          placeholder="State"
-          value={state}
+          placeholder="Purchase Price"
+          value={purchasePrice}
           onChange={(e) => {
-            return setState(e.target.value);
+            return setPurchasePrice(e.target.value);
           }}
           required
         />
         <input
           type="text"
-          id="zipCode"
-          name="zipCode"
-          pattern="([0-9]{5})(?:[-\s]*([0-9]{4}))?$"
-          minLength="5"
-          placeholder="Zip Code"
-          value={zipCode}
+          id="salePrice"
+          name="salePrice"
+          minLength="2"
+          placeholder="Sale Price"
+          value={salePrice}
           onChange={(e) => {
-            return setZipCode(e.target.value);
+            return setSalePrice(e.target.value);
           }}
           required
         />
         <input
-          type="tel"
-          id="phone"
-          name="phone"
-          minLength="10"
-          placeholder="Phone Number"
-          value={phone}
+          type="text"
+          id="qtyOnHand"
+          name="qtyOnHand"
+          pattern="[0-9\s,'-]*$"
+          minLength="2"
+          placeholder="Quantity On Hand"
+          value={qtyOnHand}
           onChange={(e) => {
-            return setPhone(e.target.value);
+            return setQtyOnHand(e.target.value);
+          }}
+          required
+        />
+        <input
+          type="text"
+          id="commissionPercentage"
+          name="commissionPercentage"
+          minLength="2"
+          placeholder="Commission Percentage"
+          value={commissionPercentage}
+          onChange={(e) => {
+            return setCommissionPercentage(e.target.value);
           }}
           required
         />
@@ -165,13 +153,8 @@ const CustomerForm = ({ initialValue, isActive }) => {
 };
 
 // Prop type validation
-CustomerForm.propTypes = {
-  initialValue: PropTypes.string,
+ProductForm.propTypes = {
   isActive: PropTypes.bool.isRequired,
 };
 
-CustomerForm.defaultProps = {
-  initialValue: '',
-};
-
-export default CustomerForm;
+export default ProductForm;

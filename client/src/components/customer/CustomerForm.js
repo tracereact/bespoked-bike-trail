@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 import { addCustomer } from '../../services/customers';
 import { useAsyncFn } from '../../hooks/useAsync';
 
-const CustomerForm = ({ initialValue, isActive }) => {
+const CustomerForm = ({ isActive }) => {
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [address, setAddress] = useState('');
@@ -36,14 +36,14 @@ const CustomerForm = ({ initialValue, isActive }) => {
 
     // Submit data then clear form inputs and hide form
     addCustomerFn(submission).then(() => {
-      setFirstName(initialValue);
-      setLastName(initialValue);
-      setAddress(initialValue);
-      setApt(initialValue);
-      setCity(initialValue);
-      setState(initialValue);
-      setZipCode(initialValue);
-      setPhone(initialValue);
+      setFirstName('');
+      setLastName('');
+      setAddress('');
+      setApt('');
+      setCity('');
+      setState('');
+      setZipCode('');
+      setPhone('');
 
       setActive(false);
     });
@@ -166,12 +166,7 @@ const CustomerForm = ({ initialValue, isActive }) => {
 
 // Prop type validation
 CustomerForm.propTypes = {
-  initialValue: PropTypes.string,
   isActive: PropTypes.bool.isRequired,
-};
-
-CustomerForm.defaultProps = {
-  initialValue: '',
 };
 
 export default CustomerForm;

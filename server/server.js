@@ -226,21 +226,27 @@ app.get('/sales', async () => {
 /* ------------------ POSTs ------------------ */
 
 // Add new product
-// app.post('/products/:id')
+app.post('/products', async (req, res) => {
+  if (!req.body || req.body === '') {
+    return res.send(app.httpErrors.badRequest('Information is required'));
+  }
 
-// Check if sales person already exists
-// const salePersonExists = async (firstName, lastName) => {
-//   const salesPerson = (
-//     await prisma.salesPerson.findFirst({
-//       where: {
-//         firstName,
-//         lastName
-//       }
-//     })
-//   );
+  const result = await commitToDb(
+    prisma.product.create({
+      data: {
+        name: req.body.name,
+        manufacturer: req.body.manufacturer,
+        style: req.body.style,
+        purchasePrice: req.body.purchasePrice,
+        salePrice: req.body.salePrice,
+        qtyOnHand: req.body.qtyOnHand,
+        commissionPercentage: req.body.commissionPercentage,
+      },
+    })
+  );
 
-//   return salesPerson !== null;
-// };
+  return result;
+});
 
 // Add new customer
 app.post('/customers', async (req, res) => {

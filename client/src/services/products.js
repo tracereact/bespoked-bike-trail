@@ -11,8 +11,11 @@ const getProduct = (id) => {
 };
 
 // Add a single product
-const addProduct = (id) => {
-  return makeRequest(`/products/${id}`);
+const addProduct = (data) => {
+  return makeRequest('/products', {
+    method: 'POST',
+    data,
+  });
 };
 
 // Update a single product
