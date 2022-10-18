@@ -31,7 +31,7 @@ const CustomerList = () => {
       <thead>
         <tr>
           <td className="title">
-            Customers
+            Customers&nbsp;
             <AddButton
               onButtonClicked={() => {
                 setActive(true);
