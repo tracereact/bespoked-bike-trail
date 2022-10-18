@@ -7,7 +7,7 @@ const Edit = ({ type, id, name, active }) => {
     return (
       <CustomerEdit customerId={id} customerName={name} isActive={active} />
     );
-  return null;
+  return <div/>; // Shouldn't reach here
 };
 
 // Prop type validation
