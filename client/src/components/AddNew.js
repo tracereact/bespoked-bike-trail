@@ -2,17 +2,15 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import CustomerForm from './CustomerForm';
 
-const AddNew = ({ type }) => {
-  // const onCustomerAdd = (data) => {
-  //   return addCustomerFn({customerId})
-  // }
-  if (type === 'customer') return <CustomerForm />;
+const AddNew = ({ type, active }) => {
+  if (type === 'customer') return <CustomerForm isActive={active} />;
   return null;
 };
 
 // Prop type validation
 AddNew.propTypes = {
   type: PropTypes.string.isRequired,
+  active: PropTypes.bool.isRequired,
 };
 
 export default AddNew;

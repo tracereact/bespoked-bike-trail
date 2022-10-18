@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { useAsync } from '../hooks/useAsync';
 import { getCustomers } from '../services/customers';
+import AddButton from './AddButton';
 import AddNew from './AddNew';
 import Loader from './Loader';
 
@@ -12,6 +13,8 @@ const StyledError = styled.h1`
 
 const CustomerList = () => {
   const { loading, error, value: customers } = useAsync(getCustomers);
+
+  const [active, setActive] = useState(false);
 
   // Check if data is loading
   if (loading) {
@@ -29,7 +32,12 @@ const CustomerList = () => {
         <tr>
           <td className="title">
             Customers
-            <AddNew type="customer" />
+            <AddButton
+              onButtonClicked={() => {
+                setActive(true);
+              }}
+            />
+            <AddNew type="customer" active={active} />
           </td>
         </tr>
       </thead>

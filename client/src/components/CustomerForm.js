@@ -1,11 +1,11 @@
 /* eslint-disable object-shorthand */
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import '../styles/form.css';
 import PropTypes from 'prop-types';
 import { addCustomer } from '../services/customers';
 import { useAsyncFn } from '../hooks/useAsync';
 
-const CustomerForm = ({ initialValue }) => {
+const CustomerForm = ({ initialValue, isActive }) => {
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [address, setAddress] = useState('');
@@ -17,6 +17,13 @@ const CustomerForm = ({ initialValue }) => {
 
   const { loading, error, execute: addCustomerFn } = useAsyncFn(addCustomer);
 
+  const [active, setActive] = useState(isActive);
+
+  // Execute when active status changes
+  useEffect(() => {
+    setActive(isActive);
+  }, [isActive]);
+
   // Send data to backend
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -27,8 +34,8 @@ const CustomerForm = ({ initialValue }) => {
       phone: phone,
     };
 
-    // Submit data then clear form inputs
-    addCustomerFn(submission).then((customer) => {
+    // Submit data then clear form inputs and hide form
+    addCustomerFn(submission).then(() => {
       setFirstName(initialValue);
       setLastName(initialValue);
       setAddress(initialValue);
@@ -38,12 +45,12 @@ const CustomerForm = ({ initialValue }) => {
       setZipCode(initialValue);
       setPhone(initialValue);
 
-      console.log(customer);
+      setActive(false);
     });
   };
 
   return (
-    <div className="form-container active">
+    <div className={`form-container ${active ? 'active' : ''}`}>
       <form method="post" onSubmit={handleSubmit}>
         <div className="title">Add New Customer</div>
         <input
@@ -160,6 +167,7 @@ const CustomerForm = ({ initialValue }) => {
 // Prop type validation
 CustomerForm.propTypes = {
   initialValue: PropTypes.string,
+  isActive: PropTypes.bool.isRequired,
 };
 
 CustomerForm.defaultProps = {
