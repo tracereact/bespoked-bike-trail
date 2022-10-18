@@ -40,6 +40,13 @@ const CustomerList = () => {
               }}
             />
             <AddNew type="customer" active={active} />
+            &nbsp;
+            <EditButton
+              onButtonClicked={() => {
+                setActive(true);
+              }}
+            />
+            <Edit type="customer" list={customers} active={active} />
           </td>
         </tr>
       </thead>
@@ -51,18 +58,6 @@ const CustomerList = () => {
                 <Link to={`/customers/${customer?.id}`}>
                   {customer?.firstName} {customer?.lastName}
                 </Link>
-                &nbsp;
-                <EditButton
-                  onButtonClicked={() => {
-                    setActive(true);
-                  }}
-                />
-                <Edit
-                  type="customer"
-                  name={`${customer?.firstName} ${customer?.lastName}`}
-                  id={customer?.id}
-                  active={active}
-                />
               </td>
             </tr>
           );

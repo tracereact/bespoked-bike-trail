@@ -155,6 +155,8 @@ app.get('/customers', async () => {
         id: true,
         firstName: true,
         lastName: true,
+        address: true,
+        phone: true,
       },
     })
   );

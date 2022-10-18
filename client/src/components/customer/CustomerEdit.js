@@ -5,14 +5,11 @@ import PropTypes from 'prop-types';
 import { updateCustomer } from '../../services/customers';
 import { useAsyncFn } from '../../hooks/useAsync';
 
-const CustomerEdit = ({ customerId, customerName, initialValue, isActive }) => {
+const CustomerEdit = ({ customerList, isActive }) => {
+  const [customerSelection, setCustomerSelection] = useState();
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [address, setAddress] = useState('');
-  const [apt, setApt] = useState('');
-  const [city, setCity] = useState('');
-  const [state, setState] = useState('');
-  const [zipCode, setZipCode] = useState('');
   const [phone, setPhone] = useState('');
 
   const {
@@ -28,27 +25,50 @@ const CustomerEdit = ({ customerId, customerName, initialValue, isActive }) => {
     setActive(isActive);
   }, [isActive]);
 
+  // Display list of customers
+  const listCustomers = () => {
+    const customers = customerList.map((customer, index) => {
+      return (
+        <option aria-label="Customer List" key={customer.id} value={index}>
+          {`${customer.firstName} ${customer.lastName}`}
+        </option>
+      );
+    });
+    return customers;
+  };
+
+  // Show info of customer selected from drop down
+  useEffect(() => {
+    setFirstName(customerSelection?.firstName);
+    setLastName(customerSelection?.lastName);
+    setAddress(customerSelection?.address);
+    setPhone(customerSelection?.phone);
+  }, [customerSelection]); // Update when selected customer changes
+
+  // Handle drop down selection
+  const customerSelected = (e) => {
+    e.preventDefault();
+    setCustomerSelection(customerList[e.target.value]);
+  };
+
   // Send data to backend
   const handleSubmit = (e) => {
     e.preventDefault();
     const submission = {
       firstName: firstName,
       lastName: lastName,
-      address: `${address} ${apt}, ${city}, ${state}, ${zipCode}`,
+      address: address,
       phone: phone,
     };
 
     // Submit data then clear form inputs and hide form
-    updateCustomerFn(customerId, submission).then(() => {
-      setFirstName(initialValue);
-      setLastName(initialValue);
-      setAddress(initialValue);
-      setApt(initialValue);
-      setCity(initialValue);
-      setState(initialValue);
-      setZipCode(initialValue);
-      setPhone(initialValue);
+    updateCustomerFn(customerSelection.id, submission).then(() => {
+      setFirstName('');
+      setLastName('');
+      setAddress('');
+      setPhone('');
 
+      // Hide form
       setActive(false);
     });
   };
@@ -56,7 +76,17 @@ const CustomerEdit = ({ customerId, customerName, initialValue, isActive }) => {
   return (
     <div className={`form-container ${active ? 'active' : ''}`}>
       <form method="post" onSubmit={handleSubmit}>
-        <div className="title">{customerName}</div>
+        <select
+          onChange={(e) => {
+            return customerSelected(e);
+          }}
+        >
+          <option disabled selected value>
+            {' '}
+            -- select an customer --{' '}
+          </option>
+          {listCustomers()}
+        </select>
         <input
           type="text"
           id="firstName"
@@ -83,67 +113,15 @@ const CustomerEdit = ({ customerId, customerName, initialValue, isActive }) => {
           }}
           required
         />
-        <input
-          type="text"
+        <textarea
           id="address"
           name="address"
           pattern="[a-zA-Z0-9\s,'-]*$"
-          minLength="2"
+          minLength="5"
           placeholder="Address"
           value={address}
           onChange={(e) => {
             return setAddress(e.target.value);
-          }}
-          required
-        />
-        <input
-          type="text"
-          id="apt"
-          name="apt"
-          pattern="[A-zÀ-ž -]+"
-          minLength="2"
-          placeholder="Apartment, suite, etc."
-          value={apt}
-          onChange={(e) => {
-            return setApt(e.target.value);
-          }}
-        />
-        <input
-          type="text"
-          id="city"
-          name="city"
-          pattern="[A-zÀ-ž -]+"
-          minLength="2"
-          placeholder="City"
-          value={city}
-          onChange={(e) => {
-            return setCity(e.target.value);
-          }}
-          required
-        />
-        <input
-          type="text"
-          id="state"
-          name="state"
-          pattern="[A-zÀ-ž -]+"
-          minLength="2"
-          placeholder="State"
-          value={state}
-          onChange={(e) => {
-            return setState(e.target.value);
-          }}
-          required
-        />
-        <input
-          type="text"
-          id="zipCode"
-          name="zipCode"
-          pattern="([0-9]{5})(?:[-\s]*([0-9]{4}))?$"
-          minLength="5"
-          placeholder="Zip Code"
-          value={zipCode}
-          onChange={(e) => {
-            return setZipCode(e.target.value);
           }}
           required
         />
@@ -170,14 +148,9 @@ const CustomerEdit = ({ customerId, customerName, initialValue, isActive }) => {
 
 // Prop type validation
 CustomerEdit.propTypes = {
-  customerId: PropTypes.string.isRequired,
-  customerName: PropTypes.string.isRequired,
-  initialValue: PropTypes.string,
+  // eslint-disable-next-line react/forbid-prop-types
+  customerList: PropTypes.array.isRequired,
   isActive: PropTypes.bool.isRequired,
-};
-
-CustomerEdit.defaultProps = {
-  initialValue: '',
 };
 
 export default CustomerEdit;
