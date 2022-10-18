@@ -1,9 +1,9 @@
 /* eslint-disable object-shorthand */
 import React, { useEffect, useState } from 'react';
-import '../styles/form.css';
+import '../../styles/form.css';
 import PropTypes from 'prop-types';
-import { addCustomer } from '../services/customers';
-import { useAsyncFn } from '../hooks/useAsync';
+import { addCustomer } from '../../services/customers';
+import { useAsyncFn } from '../../hooks/useAsync';
 
 const CustomerForm = ({ initialValue, isActive }) => {
   const [firstName, setFirstName] = useState('');

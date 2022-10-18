@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
-import { useAsync } from '../hooks/useAsync';
-import { getCustomers } from '../services/customers';
-import AddButton from './AddButton';
-import AddNew from './AddNew';
-import Loader from './Loader';
+import { useAsync } from '../../hooks/useAsync';
+import { getCustomers } from '../../services/customers';
+import AddButton from '../utils/AddButton';
+import AddNew from '../utils/AddNew';
+import Loader from '../utils/Loader';
 
 const StyledError = styled.p`
   color: red;

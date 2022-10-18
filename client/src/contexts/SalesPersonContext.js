@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { useAsync } from '../hooks/useAsync';
 import { getSalesPerson } from '../services/salesPeople';
-import Loader from '../components/Loader';
+import Loader from '../components/utils/Loader';
 
 const Context = React.createContext();
 

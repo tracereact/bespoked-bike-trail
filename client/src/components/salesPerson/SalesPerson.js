@@ -1,34 +1,34 @@
 import React from 'react';
-import { useCustomer } from '../contexts/CustomerContext';
+import { useSalesPerson } from '../../contexts/SalesPersonContext';
 
-const Customer = () => {
-  const { customer } = useCustomer();
+const SalesPerson = () => {
+  const { salesPerson } = useSalesPerson();
 
   return (
     <table>
       <thead>
         <tr>
           <td colSpan={2}>
-            {customer.firstName} {customer.lastName}
+            {salesPerson.firstName} {salesPerson.lastName}
           </td>
         </tr>
       </thead>
       <tbody>
         <tr>
           <td>Address</td>
-          <td>{customer.address}</td>
+          <td>{salesPerson.address}</td>
         </tr>
         <tr>
           <td>Phone Number</td>
-          <td>{customer.phone}</td>
+          <td>{salesPerson.phone}</td>
         </tr>
         <tr>
           <td>Start Date</td>
-          <td>{customer.startDate}</td>
+          <td>{salesPerson.startDate}</td>
         </tr>
       </tbody>
     </table>
   );
 };
 
-export default Customer;
+export default SalesPerson;

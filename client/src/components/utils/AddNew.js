@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import CustomerForm from './CustomerForm';
+import CustomerForm from '../customer/CustomerForm';
 
 const AddNew = ({ type, active }) => {
   if (type === 'customer') return <CustomerForm isActive={active} />;

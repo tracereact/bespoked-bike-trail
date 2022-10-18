@@ -1,18 +1,18 @@
 import React from 'react';
 import { Route, Routes } from 'react-router-dom';
 import styled from 'styled-components';
-import ProductList from './components/ProductList';
+import ProductList from './components/product/ProductList';
 import { ProductProvider } from './contexts/ProductContext';
-import Product from './components/Product';
-import SalesPersonList from './components/SalesPersonList';
+import Product from './components/product/Product';
+import SalesPersonList from './components/salesPerson/SalesPersonList';
 import { SalesPersonProvider } from './contexts/SalesPersonContext';
-import SalesPerson from './components/SalesPerson';
-import Footer from './components/Footer';
-import Header from './components/Header';
-import SaleList from './components/SaleList';
-import CustomerList from './components/CustomerList';
+import SalesPerson from './components/salesPerson/SalesPerson';
+import Footer from './components/utils/Footer';
+import Header from './components/utils/Header';
+import SaleList from './components/sales/SaleList';
+import CustomerList from './components/customer/CustomerList';
 import { CustomerProvider } from './contexts/CustomerContext';
-import Customer from './components/Customer';
+import Customer from './components/customer/Customer';
 
 const StyledContainer = styled.div`
   display: flex;
