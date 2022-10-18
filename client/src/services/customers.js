@@ -18,4 +18,12 @@ const addCustomer = (data) => {
   });
 };
 
-export { getCustomers, getCustomer, addCustomer };
+// Update customer
+const updateCustomer = (customerId, data) => {
+  return makeRequest(`/customers/${customerId}`, {
+    method: 'PUT',
+    data,
+  });
+};
+
+export { getCustomers, getCustomer, addCustomer, updateCustomer };

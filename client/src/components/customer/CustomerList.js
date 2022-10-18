@@ -5,6 +5,8 @@ import { useAsync } from '../../hooks/useAsync';
 import { getCustomers } from '../../services/customers';
 import AddButton from '../utils/AddButton';
 import AddNew from '../utils/AddNew';
+import EditButton from '../utils/EditButton';
+import Edit from '../utils/Edit';
 import Loader from '../utils/Loader';
 
 const StyledError = styled.p`
@@ -49,6 +51,18 @@ const CustomerList = () => {
                 <Link to={`/customers/${customer?.id}`}>
                   {customer?.firstName} {customer?.lastName}
                 </Link>
+                &nbsp;
+                <EditButton
+                  onButtonClicked={() => {
+                    setActive(true);
+                  }}
+                />
+                <Edit
+                  type="customer"
+                  name={`${customer?.firstName} ${customer?.lastName}`}
+                  id={customer?.id}
+                  active={active}
+                />
               </td>
             </tr>
           );

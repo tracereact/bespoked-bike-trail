@@ -235,13 +235,36 @@ app.get('/sales', async () => {
 // };
 
 // Add new customer
-app.post('/customers', async (req, res) => {  
+app.post('/customers', async (req, res) => {
   if (!req.body || req.body === '') {
     return res.send(app.httpErrors.badRequest('Information is required'));
   }
 
   const result = await commitToDb(
     prisma.customer.create({
+      data: {
+        firstName: req.body.firstName,
+        lastName: req.body.lastName,
+        address: req.body.address,
+        phone: req.body.phone,
+      },
+    })
+  );
+
+  return result;
+});
+
+/* ------------------ PUTs ------------------ */
+
+// Update customer
+app.put('/customers/:id', async (req, res) => {
+  if (!req.body || req.body === '') {
+    return res.send(app.httpErrors.badRequest('Information is required'));
+  }
+
+  const result = await commitToDb(
+    prisma.customer.update({
+      where: { id: req.params.id },
       data: {
         firstName: req.body.firstName,
         lastName: req.body.lastName,
