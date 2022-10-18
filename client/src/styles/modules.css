@@ -10,16 +10,27 @@
   gap: 2rem;
 
   /* Testing */
-  border: 2px solid green;
+  /* border: 2px solid green; */
 }
 
 .module {
-  border: 2px solid red;
+  padding: 1rem;
+  border: solid 0.25rem lightgray;
+  border-radius: 1rem;
 }
 
 .module .title {
   font-size: 1.5rem;
   text-align: center;
+}
+
+.module td * {
+  text-decoration: none;
+  color: black;
+}
+
+.module td *:hover {
+  color: red;
 }
 
 .module.sale-list {
