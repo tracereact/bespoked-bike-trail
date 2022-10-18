@@ -10,4 +10,12 @@ const getCustomer = (id) => {
   return makeRequest(`/customers/${id}`);
 };
 
-export { getCustomers, getCustomer };
+// Add new customer
+const addCustomer = (data) => {
+  return makeRequest('/customers', {
+    method: 'POST',
+    data,
+  });
+};
+
+export { getCustomers, getCustomer, addCustomer };

@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { useAsync } from '../hooks/useAsync';
 import { getCustomers } from '../services/customers';
+import AddNew from './AddNew';
 import Loader from './Loader';
 
 const StyledError = styled.h1`
@@ -26,7 +27,10 @@ const CustomerList = () => {
     <table className="module customer-list">
       <thead>
         <tr>
-          <td className="title">Customers</td>
+          <td className="title">
+            Customers
+            <AddNew type="customer" />
+          </td>
         </tr>
       </thead>
       <tbody>
