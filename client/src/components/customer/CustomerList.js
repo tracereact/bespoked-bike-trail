@@ -16,7 +16,8 @@ const StyledError = styled.p`
 const CustomerList = () => {
   const { loading, error, value: customers } = useAsync(getCustomers);
 
-  const [active, setActive] = useState(false);
+  const [addActive, setAddActive] = useState(false);
+  const [editActive, setEditActive] = useState(false);
 
   // Check if data is loading
   if (loading) {
@@ -36,17 +37,17 @@ const CustomerList = () => {
             Customers&nbsp;
             <AddButton
               onButtonClicked={() => {
-                setActive(true);
+                setAddActive(true);
               }}
             />
-            <AddNew type="customer" active={active} />
+            <AddNew type="customer" active={addActive} />
             &nbsp;
             <EditButton
               onButtonClicked={() => {
-                setActive(true);
+                setEditActive(true);
               }}
             />
-            <Edit type="customer" list={customers} active={active} />
+            <Edit type="customer" list={customers} active={editActive} />
           </td>
         </tr>
       </thead>
