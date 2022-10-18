@@ -5,9 +5,12 @@ const getSales = () => {
   return makeRequest('/sales');
 };
 
-// Get a single sale
-const getSale = (id) => {
-  return makeRequest(`/sales/${id}`);
+// Add a single sale
+const addSale = (data) => {
+  return makeRequest('/sales', {
+    method: 'POST',
+    data,
+  });
 };
 
-export { getSales, getSale };
+export { getSales, addSale };

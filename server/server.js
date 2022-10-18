@@ -294,6 +294,25 @@ app.post('/sales-people', async (req, res) => {
   return result;
 });
 
+// Add new sale
+app.post('/sales', async (req, res) => {
+  if (!req.body || req.body === '') {
+    return res.send(app.httpErrors.badRequest('Information is required'));
+  }
+
+  const result = await commitToDb(
+    prisma.sale.create({
+      data: {
+        productId: req.body.productId,
+        salesPersonId: req.body.salesPersonId,
+        customerId: req.body.customerId,
+        salesDate: req.body.terminationDate,
+      },
+    })
+  );
+  return result;
+});
+
 /* ------------------ PUTs ------------------ */
 
 // Update customer
