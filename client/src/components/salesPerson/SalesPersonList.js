@@ -1,9 +1,13 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { useAsync } from '../../hooks/useAsync';
 import { getSalesPeople } from '../../services/salesPeople';
 import Loader from '../utils/Loader';
+import AddButton from '../utils/AddButton';
+import AddNew from '../utils/AddNew';
+import EditButton from '../utils/EditButton';
+import Edit from '../utils/Edit';
 
 const StyledError = styled.p`
   color: red;
@@ -11,6 +15,9 @@ const StyledError = styled.p`
 
 const SalesPersonList = () => {
   const { loading, error, value: salesPeople } = useAsync(getSalesPeople);
+
+  const [addActive, setAddActive] = useState(false);
+  const [editActive, setEditActive] = useState(false);
 
   // Check if data is loading
   if (loading) {
@@ -26,7 +33,21 @@ const SalesPersonList = () => {
     <table className="module sales-person-list">
       <thead>
         <tr>
-          <td className="title">Sales People</td>
+          <td className="title">
+            Sales People{' '}
+            <AddButton
+              onButtonClicked={() => {
+                setAddActive(true);
+              }}
+            />
+            <AddNew type="salesPerson" active={addActive} />{' '}
+            <EditButton
+              onButtonClicked={() => {
+                setEditActive(true);
+              }}
+            />
+            <Edit type="salesPerson" list={salesPeople} active={editActive} />
+          </td>
         </tr>
       </thead>
       <tbody>

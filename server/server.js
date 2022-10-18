@@ -115,6 +115,10 @@ app.get('/sales-people', async () => {
         id: true,
         firstName: true,
         lastName: true,
+        address: true,
+        phone: true,
+        startDate: true,
+        terminationDate: true,
       },
     })
   );
@@ -268,6 +272,28 @@ app.post('/customers', async (req, res) => {
   return result;
 });
 
+// Add new sales person
+app.post('/sales-people', async (req, res) => {
+  if (!req.body || req.body === '') {
+    return res.send(app.httpErrors.badRequest('Information is required'));
+  }
+
+  const result = await commitToDb(
+    prisma.salesPerson.create({
+      data: {
+        firstName: req.body.firstName,
+        lastName: req.body.lastName,
+        address: req.body.address,
+        phone: req.body.phone,
+        startDate: req.body.startDate,
+        terminationDate: req.body.terminationDate,
+      },
+    })
+  );
+
+  return result;
+});
+
 /* ------------------ PUTs ------------------ */
 
 // Update customer
@@ -308,6 +334,29 @@ app.put('/products/:id', async (req, res) => {
         salePrice: req.body.salePrice,
         qtyOnHand: req.body.qtyOnHand,
         commissionPercentage: req.body.commissionPercentage,
+      },
+    })
+  );
+
+  return result;
+});
+
+// Update sales person
+app.put('/sales-people/:id', async (req, res) => {
+  if (!req.body || req.body === '') {
+    return res.send(app.httpErrors.badRequest('Information is required'));
+  }
+
+  const result = await commitToDb(
+    prisma.salesPerson.update({
+      where: { id: req.params.id },
+      data: {
+        firstName: req.body.firstName,
+        lastName: req.body.lastName,
+        address: req.body.address,
+        phone: req.body.phone,
+        startDate: req.body.startDate,
+        terminationDate: req.body.terminationDate,
       },
     })
   );
