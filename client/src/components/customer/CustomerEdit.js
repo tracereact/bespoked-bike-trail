@@ -76,6 +76,7 @@ const CustomerEdit = ({ customerList, isActive }) => {
   return (
     <div className={`form-container ${active ? 'active' : ''}`}>
       <form method="post" onSubmit={handleSubmit}>
+        <div className="title">Edit Customer</div>
         <select
           onChange={(e) => {
             return customerSelected(e);
