@@ -1,4 +1,4 @@
-// This is your Prisma schema file,
+// This is your Prisma Object-relational mapping (ORM) schema file,
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
 
 generator client {
@@ -59,6 +59,7 @@ model Sale {
   customer      Customer    @relation(fields: [customerId], references: [id])
   customerId    String
   salesDate     DateTime    @default(now())
+  salesPrice    String
 }
 
 model Discount {
