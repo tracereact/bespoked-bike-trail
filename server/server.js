@@ -227,6 +227,44 @@ app.get('/sales', async () => {
   return result;
 });
 
+// List sales for specified sales person
+app.get('/sales/:salesPersonId', async (req) => {
+  const result = await commitToDb(
+    prisma.sale.findMany({
+      where: {
+        salesPersonId: req.params.salesPersonId,
+      },
+      select: {
+        id: true,
+        productId: true,
+        salesPersonId: true,
+        customerId: true,
+        salesDate: true,
+        product: {
+          select: {
+            name: true,
+            salePrice: true,
+            commissionPercentage: true,
+          },
+        },
+        customer: {
+          select: {
+            firstName: true,
+            lastName: true,
+          },
+        },
+        salesPerson: {
+          select: {
+            firstName: true,
+            lastName: true,
+          },
+        },
+      },
+    })
+  );
+  return result;
+});
+
 /* ------------------ POSTs ------------------ */
 
 // Add new product
@@ -299,8 +337,6 @@ app.post('/sales', async (req, res) => {
   if (!req.body || req.body === '') {
     return res.send(app.httpErrors.badRequest('Information is required'));
   }
-
-  console.log(req.body);
 
   const result = await commitToDb(
     prisma.sale.create({
