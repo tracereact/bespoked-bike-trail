@@ -5,6 +5,11 @@ const getSales = () => {
   return makeRequest('/sales');
 };
 
+// Get list of all sales by a given sales person
+const getSalesPersonSales = (salesPersonId) => {
+  return makeRequest(`/sales/${salesPersonId}`);
+};
+
 // Add a single sale
 const addSale = (data) => {
   return makeRequest('/sales', {
@@ -13,4 +18,4 @@ const addSale = (data) => {
   });
 };
 
-export { getSales, addSale };
+export { getSales, getSalesPersonSales, addSale };
