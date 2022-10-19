@@ -316,6 +316,21 @@ app.post('/sales-people', async (req, res) => {
     return res.send(app.httpErrors.badRequest('Information is required'));
   }
 
+  // Check if sales person already exists
+  const count = await commitToDb(
+    prisma.salesPerson.count({
+      where: {
+        firstName: req.body.firstName,
+        lastName: req.body.lastName,
+      },
+    })
+  );
+
+  if (count && count > 0) {
+    return res.send(app.httpErrors.badRequest('Sales person already exists'));
+  }
+
+  // Create new sales person
   const result = await commitToDb(
     prisma.salesPerson.create({
       data: {
