@@ -70,7 +70,7 @@ const SalesReport = ({ salesPersonId }) => {
           );
         })}
         <tr>
-          <th>Total Commissions</th>
+          <th>Total Earnings</th>
           <td>
             $
             {sales?.reduce((total, sale) => {
