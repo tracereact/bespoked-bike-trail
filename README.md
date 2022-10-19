@@ -16,7 +16,7 @@ npm i
 ```
 3. After npm installation, add a `.env` file with the following configurations:
 ```
-DATABASE_URL="postgresql://{USERNAME}:{PASSWORD}{HOST}:{PORT}/{DB_NAME}"
+DATABASE_URL="postgresql://{USERNAME}:{PASSWORD}.{HOST}:{PORT}/{DB_NAME}"
 PORT=3002 (Can be anything unused)
 CLIENT_URL=http://localhost:3000
 ```
