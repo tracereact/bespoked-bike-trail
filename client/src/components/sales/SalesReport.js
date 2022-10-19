@@ -40,6 +40,7 @@ const SalesReport = ({ salesPersonId }) => {
       </thead>
       <tbody>
         <tr className="header row">
+          <th className="col-0"> </th>
           <th className="col-1">Product</th>
           <th className="col-2">Customer</th>
           <th className="col-3">Date</th>
@@ -49,6 +50,7 @@ const SalesReport = ({ salesPersonId }) => {
         {sales?.map((sale) => {
           return (
             <tr className="row" key={sale?.id}>
+              <td className="col-0"> </td>
               <td className="col-1 product">
                 <Link to={`/products/${sale?.productId}`}>
                   {sale?.product?.name}
@@ -67,6 +69,26 @@ const SalesReport = ({ salesPersonId }) => {
             </tr>
           );
         })}
+        <tr>
+          <th>Total Commissions</th>
+          <td>
+            $
+            {sales?.reduce((total, sale) => {
+              // Extract string values from object
+              const { commissionPercentage, salePrice } = sale.product;
+
+              // Convert dollar amount to double
+              // Convert percentage to float
+              let earnings =
+                Number(salePrice.replace(/[^0-9.-]+/g, '')) *
+                (parseFloat(commissionPercentage) / 100.0);
+
+              earnings = Math.round(earnings * 100) / 100;
+
+              return total + earnings;
+            }, 0.0)}
+          </td>
+        </tr>
       </tbody>
     </table>
   );
