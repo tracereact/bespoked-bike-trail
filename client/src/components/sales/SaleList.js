@@ -1,16 +1,28 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { useAsync } from '../../hooks/useAsync';
 import { getSales } from '../../services/sales';
 import Loader from '../utils/Loader';
+import AddButton from '../utils/AddButton';
+import AddNew from '../utils/AddNew';
+import { getProducts } from '../../services/products';
+import { getSalesPeople } from '../../services/salesPeople';
+import { getCustomers } from '../../services/customers';
 
-const StyledError = styled.h1`
+const StyledError = styled.p`
   color: red;
 `;
 
 const SaleList = () => {
   const { loading, error, value: sales } = useAsync(getSales);
+
+  // Track list of objects
+  const { value: products } = useAsync(getProducts);
+  const { value: salesPeople } = useAsync(getSalesPeople);
+  const { value: customers } = useAsync(getCustomers);
+
+  const [addActive, setAddActive] = useState(false);
 
   // Check if data is loading
   if (loading) {
@@ -27,7 +39,19 @@ const SaleList = () => {
       <thead>
         <tr>
           <td className="title" colSpan={6}>
-            Sales
+            Sales{' '}
+            <AddButton
+              onButtonClicked={() => {
+                setAddActive(true);
+              }}
+            />
+            <AddNew
+              type="sale"
+              products={products}
+              salesPeople={salesPeople}
+              customers={customers}
+              active={addActive}
+            />{' '}
           </td>
         </tr>
       </thead>
@@ -51,14 +75,14 @@ const SaleList = () => {
               <td className="col-2 customer">
                 <Link
                   to={`/customers/${sale?.customerId}`}
-                >{`${sale?.customer?.firstName} ${sale?.customer?.firstName}`}</Link>
+                >{`${sale?.customer?.firstName} ${sale?.customer?.lastName}`}</Link>
               </td>
               <td className="col-3 date">{sale?.salesDate}</td>
               <td className="col-4 price">{sale?.product?.salePrice}</td>
               <td className="col-5 sales-person">
                 <Link
                   to={`/sales-people/${sale?.salesPersonId}`}
-                >{`${sale?.salesPerson?.firstName} ${sale?.salesPerson?.firstName}`}</Link>
+                >{`${sale?.salesPerson?.firstName} ${sale?.salesPerson?.lastName}`}</Link>
               </td>
               <td className="col-6 commission">
                 {sale?.product?.commissionPercentage}
