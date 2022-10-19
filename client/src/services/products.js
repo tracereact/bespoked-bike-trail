@@ -11,8 +11,19 @@ const getProduct = (id) => {
 };
 
 // Add a single product
-const addProduct = (id) => {
-  return makeRequest(`/products/${id}`);
+const addProduct = (data) => {
+  return makeRequest('/products', {
+    method: 'POST',
+    data,
+  });
 };
 
-export { getProducts, getProduct, addProduct };
+// Update a single product
+const updateProduct = (id, data) => {
+  return makeRequest(`/products/${id}`, {
+    method: 'PUT',
+    data,
+  });
+};
+
+export { getProducts, getProduct, addProduct, updateProduct };

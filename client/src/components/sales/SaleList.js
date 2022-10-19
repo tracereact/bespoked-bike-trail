@@ -1,10 +1,9 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
-import { useAsync } from '../hooks/useAsync';
-import { getSales } from '../services/sales';
-import Loader from './Loader';
-import '../styles/sales.css';
+import { useAsync } from '../../hooks/useAsync';
+import { getSales } from '../../services/sales';
+import Loader from '../utils/Loader';
 
 const StyledError = styled.h1`
   color: red;

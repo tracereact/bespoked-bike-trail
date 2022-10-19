@@ -37,6 +37,12 @@ app.get('/products', async () => {
       select: {
         id: true,
         name: true,
+        manufacturer: true,
+        style: true,
+        purchasePrice: true,
+        salePrice: true,
+        qtyOnHand: true,
+        commissionPercentage: true,
       },
     })
   );
@@ -109,6 +115,10 @@ app.get('/sales-people', async () => {
         id: true,
         firstName: true,
         lastName: true,
+        address: true,
+        phone: true,
+        startDate: true,
+        terminationDate: true,
       },
     })
   );
@@ -155,6 +165,8 @@ app.get('/customers', async () => {
         id: true,
         firstName: true,
         lastName: true,
+        address: true,
+        phone: true,
       },
     })
   );
@@ -218,7 +230,139 @@ app.get('/sales', async () => {
 /* ------------------ POSTs ------------------ */
 
 // Add new product
-// app.post('/products/:id')
+app.post('/products', async (req, res) => {
+  if (!req.body || req.body === '') {
+    return res.send(app.httpErrors.badRequest('Information is required'));
+  }
+
+  const result = await commitToDb(
+    prisma.product.create({
+      data: {
+        name: req.body.name,
+        manufacturer: req.body.manufacturer,
+        style: req.body.style,
+        purchasePrice: req.body.purchasePrice,
+        salePrice: req.body.salePrice,
+        qtyOnHand: req.body.qtyOnHand,
+        commissionPercentage: req.body.commissionPercentage,
+      },
+    })
+  );
+
+  return result;
+});
+
+// Add new customer
+app.post('/customers', async (req, res) => {
+  if (!req.body || req.body === '') {
+    return res.send(app.httpErrors.badRequest('Information is required'));
+  }
+
+  const result = await commitToDb(
+    prisma.customer.create({
+      data: {
+        firstName: req.body.firstName,
+        lastName: req.body.lastName,
+        address: req.body.address,
+        phone: req.body.phone,
+      },
+    })
+  );
+
+  return result;
+});
+
+// Add new sales person
+app.post('/sales-people', async (req, res) => {
+  if (!req.body || req.body === '') {
+    return res.send(app.httpErrors.badRequest('Information is required'));
+  }
+
+  const result = await commitToDb(
+    prisma.salesPerson.create({
+      data: {
+        firstName: req.body.firstName,
+        lastName: req.body.lastName,
+        address: req.body.address,
+        phone: req.body.phone,
+        startDate: req.body.startDate,
+        terminationDate: req.body.terminationDate,
+      },
+    })
+  );
+
+  return result;
+});
+
+/* ------------------ PUTs ------------------ */
+
+// Update customer
+app.put('/customers/:id', async (req, res) => {
+  if (!req.body || req.body === '') {
+    return res.send(app.httpErrors.badRequest('Information is required'));
+  }
+
+  const result = await commitToDb(
+    prisma.customer.update({
+      where: { id: req.params.id },
+      data: {
+        firstName: req.body.firstName,
+        lastName: req.body.lastName,
+        address: req.body.address,
+        phone: req.body.phone,
+      },
+    })
+  );
+
+  return result;
+});
+
+// Update product
+app.put('/products/:id', async (req, res) => {
+  if (!req.body || req.body === '') {
+    return res.send(app.httpErrors.badRequest('Information is required'));
+  }
+
+  const result = await commitToDb(
+    prisma.product.update({
+      where: { id: req.params.id },
+      data: {
+        name: req.body.name,
+        manufacturer: req.body.manufacturer,
+        style: req.body.style,
+        purchasePrice: req.body.purchasePrice,
+        salePrice: req.body.salePrice,
+        qtyOnHand: req.body.qtyOnHand,
+        commissionPercentage: req.body.commissionPercentage,
+      },
+    })
+  );
+
+  return result;
+});
+
+// Update sales person
+app.put('/sales-people/:id', async (req, res) => {
+  if (!req.body || req.body === '') {
+    return res.send(app.httpErrors.badRequest('Information is required'));
+  }
+
+  const result = await commitToDb(
+    prisma.salesPerson.update({
+      where: { id: req.params.id },
+      data: {
+        firstName: req.body.firstName,
+        lastName: req.body.lastName,
+        address: req.body.address,
+        phone: req.body.phone,
+        startDate: req.body.startDate,
+        terminationDate: req.body.terminationDate,
+      },
+    })
+  );
+
+  return result;
+});
 
 // Start server
 app.listen({ port: process.env.PORT });

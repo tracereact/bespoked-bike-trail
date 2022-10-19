@@ -12,7 +12,7 @@ const api = axios.create({
  * Helper function to make all axios requests
  * @param {*} url
  * @param {*} options
- * @returns axios instance
+ * @returns axios response
  */
 const makeRequest = (url, options) => {
   return api(url, options)

@@ -12,6 +12,11 @@ const StyledFooter = styled.footer`
   gap: 0.5rem;
 `;
 
+const StyledAnchor = styled.a`
+  color: red;
+  text-decoration: none;
+`;
+
 const Footer = () => {
   return (
     <StyledFooter className="footer">
@@ -19,9 +24,13 @@ const Footer = () => {
       <div className="disclaimer">
         Application built by&nbsp;
         <span>
-          <a href="https://tracereact.com" target="_blank" rel="noreferrer">
+          <StyledAnchor
+            href="https://tracereact.com"
+            target="_blank"
+            rel="noreferrer"
+          >
             Trace React
-          </a>
+          </StyledAnchor>
         </span>
       </div>
     </StyledFooter>

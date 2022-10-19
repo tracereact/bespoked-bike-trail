@@ -10,11 +10,13 @@
   gap: 2rem;
 
   /* Testing */
-  border: 2px solid green;
+  /* border: 2px solid green; */
 }
 
 .module {
-  border: 2px solid red;
+  padding: 1rem;
+  border: solid 0.25rem lightgray;
+  border-radius: 1rem;
 }
 
 .module .title {
@@ -22,9 +24,22 @@
   text-align: center;
 }
 
+.module td * {
+  text-decoration: none;
+  color: black;
+}
+
+.module td *:hover {
+  color: red;
+}
+
 .module.sale-list {
   grid-column-start: 1;
   grid-column-end: 4;
   grid-row-start: 2;
   grid-row-end: 2;
+}
+
+.module.sale-list td {
+  text-align: center;
 }

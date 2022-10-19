@@ -10,4 +10,20 @@ const getSalesPerson = (id) => {
   return makeRequest(`/sales-people/${id}`);
 };
 
-export { getSalesPeople, getSalesPerson };
+// Add new sales person
+const addSalesPerson = (data) => {
+  return makeRequest('/sales-people', {
+    method: 'POST',
+    data,
+  });
+};
+
+// Update sales person
+const updateSalesPerson = (id, data) => {
+  return makeRequest(`/sales-people/${id}`, {
+    method: 'PUT',
+    data,
+  });
+};
+
+export { getSalesPeople, getSalesPerson, addSalesPerson, updateSalesPerson };
