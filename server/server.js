@@ -269,8 +269,24 @@ app.get('/sales/:salesPersonId', async (req) => {
 
 // Add new product
 app.post('/products', async (req, res) => {
+  // Check if request body is empty
   if (!req.body || req.body === '') {
     return res.send(app.httpErrors.badRequest('Information is required'));
+  }
+
+  // Check if product already exists
+  const count = await commitToDb(
+    prisma.product.count({
+      where: {
+        name: req.body.name,
+        manufacturer: req.body.manufacturer,
+        style: req.body.style,
+      },
+    })
+  );
+
+  if (count && count > 0) {
+    return res.send(app.httpErrors.badRequest('Product already exists'));
   }
 
   const result = await commitToDb(
