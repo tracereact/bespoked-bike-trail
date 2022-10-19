@@ -19,3 +19,8 @@ html {
   height: auto;
   scroll-behavior: smooth;
 }
+
+.error-msg {
+  font-size: 0.75rem;
+  color: red;
+}

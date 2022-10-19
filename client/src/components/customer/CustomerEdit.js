@@ -85,7 +85,7 @@ const CustomerEdit = ({ customerList, isActive }) => {
         >
           <option disabled selected value>
             {' '}
-            -- select an customer --{' '}
+            -- select a customer --{' '}
           </option>
           {listCustomers()}
         </select>
