@@ -375,8 +375,6 @@ app.put('/sales-people/:id', async (req, res) => {
         lastName: req.body.lastName,
         address: req.body.address,
         phone: req.body.phone,
-        startDate: req.body.startDate,
-        terminationDate: req.body.terminationDate,
       },
     })
   );

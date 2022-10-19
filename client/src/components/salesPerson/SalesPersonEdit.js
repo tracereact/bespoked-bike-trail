@@ -7,12 +7,11 @@ import { useAsyncFn } from '../../hooks/useAsync';
 
 const SalesPersonEdit = ({ salesPersonList, isActive }) => {
   const [salesPersonSelection, setSalesPersonSelection] = useState();
+
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [address, setAddress] = useState('');
   const [phone, setPhone] = useState('');
-  const [startDate, setStartDate] = useState('');
-  const [terminationDate, setTerminationDate] = useState('');
 
   const {
     loading,
@@ -49,8 +48,6 @@ const SalesPersonEdit = ({ salesPersonList, isActive }) => {
     setLastName(salesPersonSelection?.lastName);
     setAddress(salesPersonSelection?.address);
     setPhone(salesPersonSelection?.phone);
-    setStartDate(salesPersonSelection?.startDate);
-    setTerminationDate(salesPersonSelection?.terminationDate);
   }, [salesPersonSelection]); // Update when selected salesPerson changes
 
   // Handle drop down selection
@@ -67,8 +64,6 @@ const SalesPersonEdit = ({ salesPersonList, isActive }) => {
       lastName: lastName,
       address: address,
       phone: phone,
-      startDate: startDate,
-      terminationDate: terminationDate,
     };
 
     // Submit data then clear form inputs and hide form
@@ -77,8 +72,6 @@ const SalesPersonEdit = ({ salesPersonList, isActive }) => {
       setLastName('');
       setAddress('');
       setPhone('');
-      setStartDate('');
-      setTerminationDate('');
 
       // Hide form
       setActive(false);
@@ -148,28 +141,6 @@ const SalesPersonEdit = ({ salesPersonList, isActive }) => {
           value={phone}
           onChange={(e) => {
             return setPhone(e.target.value);
-          }}
-          required
-        />
-        <input
-          type="date"
-          id="startDate"
-          name="startDate"
-          placeholder="Start Date"
-          value={startDate}
-          onChange={(e) => {
-            return setStartDate(e.target.value);
-          }}
-          required
-        />
-        <input
-          type="date"
-          id="terminationDate"
-          name="terminationDate"
-          placeholder="Termination Date"
-          value={terminationDate}
-          onChange={(e) => {
-            return setTerminationDate(e.target.value);
           }}
           required
         />
