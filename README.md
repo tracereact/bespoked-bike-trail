@@ -6,7 +6,7 @@ BeSpoked is a high-end bicycle shop and Bike Trail is their sales tracking appli
 BeSpoked is introducing a new quarterly bonus based on sales as an incentive. This application was designed, to help track the commission and determine each salesperson’s quarterly bonus.
 
 ### How?
-For this application, you will need Linux and PostgreSQL installed.
+For this application, you will need Linux, NPX & NPM, and PostgreSQL installed.
 
 1. Clone the repo to a local directory
 
