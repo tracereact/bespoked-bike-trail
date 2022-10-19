@@ -5,7 +5,12 @@ import PropTypes from 'prop-types';
 import { addSale } from '../../services/sales';
 import { useAsyncFn } from '../../hooks/useAsync';
 
-const SalesForm = ({  productList, salesPersonList, customerList, isActive }) => {
+const SalesForm = ({
+  productList,
+  salesPersonList,
+  customerList,
+  isActive,
+}) => {
   const [productSelection, setProductSelection] = useState();
   const [salesPersonSelection, setSalesPersonSelection] = useState();
   const [customerSelection, setCustomerSelection] = useState();
@@ -13,8 +18,6 @@ const SalesForm = ({  productList, salesPersonList, customerList, isActive }) =>
   const [product, setProduct] = useState('');
   const [salesPerson, setSalesPerson] = useState('');
   const [customer, setCustomer] = useState('');
-  const [purchasePrice, setPurchasePrice] = useState('');
-
 
   const { loading, error, execute: addSaleFn } = useAsyncFn(addSale);
 
@@ -25,78 +28,81 @@ const SalesForm = ({  productList, salesPersonList, customerList, isActive }) =>
     setActive(isActive);
   }, [isActive]);
 
-    // Display list of products
-    const listProducts = () => {
-      const products = productList.map((product, index) => {
-        return (
-          <option aria-label="Customer List" key={product.id} value={index}>
-            {product.name}
-          </option>
-        );
-      });
-      return products;
-    };
+  // Display list of products
+  const listProducts = () => {
+    const products = productList?.map((p, index) => {
+      return (
+        <option aria-label="Customer List" key={p.id} value={index}>
+          {p.name}
+        </option>
+      );
+    });
+    return products;
+  };
 
-    // Display list of sales people
-    const listSalesPeople = () => {
-      const salesPeople = salesPersonList.map((salesPerson, index) => {
-        return (
-          <option aria-label="Customer List" key={salesPerson.id} value={index}>
-            {`${salesPerson.firstName} ${salesPerson.lastName}`}
-          </option>
-        );
-      });
-      return salesPeople;
-    };
+  // Display list of sales people
+  const listSalesPeople = () => {
+    const salesPeople = salesPersonList?.map((sp, index) => {
+      return (
+        <option aria-label="Customer List" key={sp.id} value={index}>
+          {`${sp.firstName} ${sp.lastName}`}
+        </option>
+      );
+    });
+    return salesPeople;
+  };
 
-    // Display list of customers
-    const listCustomers = () => {
-      const customers = customerList.map((customer, index) => {
-        return (
-          <option aria-label="Customer List" key={customer.id} value={index}>
-            {`${customer.firstName} ${customer.lastName}`}
-          </option>
-        );
-      });
-      return customers;
-    };
-  
-    // Show info of customer selected from drop down
-    useEffect(() => {
-      setFirstName(customerSelection?.firstName);
-      setLastName(customerSelection?.lastName);
-      setAddress(customerSelection?.address);
-      setPhone(customerSelection?.phone);
-    }, [customerSelection]); // Update when selected customer changes
-  
-    // Handle drop down selection
-    const customerSelected = (e) => {
-      e.preventDefault();
-      setCustomerSelection(customerList[e.target.value]);
-    };
+  // Display list of customers
+  const listCustomers = () => {
+    const customers = customerList?.map((c, index) => {
+      return (
+        <option aria-label="Customer List" key={c.id} value={index}>
+          {`${c.firstName} ${c.lastName}`}
+        </option>
+      );
+    });
+    return customers;
+  };
+
+  // Show info of customer selected from drop down
+  useEffect(() => {
+    setProduct(productSelection?.id);
+    setSalesPerson(salesPersonSelection?.id);
+    setCustomer(customerSelection?.id);
+  }, [productSelection, salesPersonSelection, customerSelection]); // Update when selected customer changes
+
+  // Handle product drop down selection
+  const productSelected = (e) => {
+    e.preventDefault();
+    setProductSelection(productList[e.target.value]);
+  };
+
+  // Handle sales person drop down selection
+  const salesPersonSelected = (e) => {
+    e.preventDefault();
+    setSalesPersonSelection(salesPersonList[e.target.value]);
+  };
+
+  // Handle customer drop down selection
+  const customerSelected = (e) => {
+    e.preventDefault();
+    setCustomerSelection(customerList[e.target.value]);
+  };
 
   // Send data to backend
   const handleSubmit = (e) => {
     e.preventDefault();
     const submission = {
-      name: name,
-      manufacturer: manufacturer,
-      style: style,
-      purchasePrice: purchasePrice,
-      salePrice: salePrice,
-      qtyOnHand: qtyOnHand,
-      commissionPercentage: commissionPercentage,
+      productId: product,
+      salesPersonId: salesPerson,
+      customerId: customer,
     };
 
     // Submit data then clear form inputs and hide form
     addSaleFn(submission).then(() => {
-      setName('');
-      setManufacturer('');
-      setStyle('');
-      setPurchasePrice('');
-      setSalePrice('');
-      setQtyOnHand('');
-      setCommissionPercentage('');
+      setProduct('');
+      setSalesPerson('');
+      setCustomer('');
 
       // Hide form
       setActive(false);
@@ -109,7 +115,7 @@ const SalesForm = ({  productList, salesPersonList, customerList, isActive }) =>
         <div className="title">Add Sale</div>
         <select
           onChange={(e) => {
-            return customerSelected(e);
+            return productSelected(e);
           }}
           required
         >
@@ -117,11 +123,11 @@ const SalesForm = ({  productList, salesPersonList, customerList, isActive }) =>
             {' '}
             -- select a product --{' '}
           </option>
-          {listCustomers()}
+          {listProducts()}
         </select>
         <select
           onChange={(e) => {
-            return customerSelected(e);
+            return salesPersonSelected(e);
           }}
           required
         >
@@ -129,7 +135,7 @@ const SalesForm = ({  productList, salesPersonList, customerList, isActive }) =>
             {' '}
             -- select a sales person --{' '}
           </option>
-          {listCustomers()}
+          {listSalesPeople()}
         </select>
         <select
           onChange={(e) => {
@@ -143,18 +149,6 @@ const SalesForm = ({  productList, salesPersonList, customerList, isActive }) =>
           </option>
           {listCustomers()}
         </select>
-        <input
-          type="text"
-          id="commissionPercentage"
-          name="commissionPercentage"
-          minLength="2"
-          placeholder="Commission Percentage"
-          value={commissionPercentage}
-          onChange={(e) => {
-            return setCommissionPercentage(e.target.value);
-          }}
-          required
-        />
         <button type="submit" id="submit" disabled={loading}>
           {loading ? 'Submitting...' : 'Submit'}
         </button>

@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { useAsync } from '../../hooks/useAsync';
@@ -10,13 +10,13 @@ import { getProducts } from '../../services/products';
 import { getSalesPeople } from '../../services/salesPeople';
 import { getCustomers } from '../../services/customers';
 
-const StyledError = styled.h1`
+const StyledError = styled.p`
   color: red;
 `;
 
 const SaleList = () => {
   const { loading, error, value: sales } = useAsync(getSales);
-  
+
   // Track list of objects
   const { value: products } = useAsync(getProducts);
   const { value: salesPeople } = useAsync(getSalesPeople);
@@ -45,7 +45,13 @@ const SaleList = () => {
                 setAddActive(true);
               }}
             />
-            <AddNew type="sale" products={products} salesPeople={salesPeople} customers={customers} active={addActive} />{' '}
+            <AddNew
+              type="sale"
+              products={products}
+              salesPeople={salesPeople}
+              customers={customers}
+              active={addActive}
+            />{' '}
           </td>
         </tr>
       </thead>
@@ -69,14 +75,14 @@ const SaleList = () => {
               <td className="customer">
                 <Link
                   to={`/customers/${sale?.customerId}`}
-                >{`${sale?.customer?.firstName} ${sale?.customer?.firstName}`}</Link>
+                >{`${sale?.customer?.firstName} ${sale?.customer?.lastName}`}</Link>
               </td>
               <td className="date">{sale?.salesDate}</td>
               <td className="price">{sale?.product?.salePrice}</td>
               <td className="sales-person">
                 <Link
                   to={`/sales-people/${sale?.salesPersonId}`}
-                >{`${sale?.salesPerson?.firstName} ${sale?.salesPerson?.firstName}`}</Link>
+                >{`${sale?.salesPerson?.firstName} ${sale?.salesPerson?.lastName}`}</Link>
               </td>
               <td className="commission">
                 {sale?.product?.commissionPercentage}
