@@ -6,6 +6,7 @@ import { updateProduct } from '../../services/products';
 import { useAsyncFn } from '../../hooks/useAsync';
 
 const ProductEdit = ({ productList, isActive }) => {
+  // Store current product and its information as states
   const [productSelection, setProductSelection] = useState();
   const [name, setName] = useState('');
   const [manufacturer, setManufacturer] = useState('');
@@ -15,20 +16,23 @@ const ProductEdit = ({ productList, isActive }) => {
   const [qtyOnHand, setQtyOnHand] = useState('');
   const [commissionPercentage, setCommissionPercentage] = useState('');
 
+  // Get function that allows product information to be updated asynchronously
   const {
     loading,
     error,
     execute: updateProductFn,
   } = useAsyncFn(updateProduct);
 
+  // Flag that determines if the edit prompt is to be shown
+  // Default value will be what was passed in as a property
   const [active, setActive] = useState(isActive);
 
-  // Execute when active status changes
+  // Prompt's initial view should be hidden
   useEffect(() => {
     setActive(isActive);
-  }, [isActive]);
+  }, [isActive]); // When the flag changes, update prompt to be shown
 
-  // Display list of products
+  // Display list of products in the drop-down menu
   const listProducts = () => {
     const products = productList.map((product, index) => {
       return (
@@ -40,7 +44,7 @@ const ProductEdit = ({ productList, isActive }) => {
     return products;
   };
 
-  // Show info of product selected from drop down
+  // Set fields of edit prompt to show current information for selected product
   useEffect(() => {
     setName(productSelection?.name);
     setManufacturer(productSelection?.manufacturer);
@@ -51,15 +55,15 @@ const ProductEdit = ({ productList, isActive }) => {
     setCommissionPercentage(productSelection?.commissionPercentage);
   }, [productSelection]); // Update when selected product changes
 
-  // Handle drop down selection
+  // Handle drop down selection and update selected product
   const productSelected = (e) => {
     e.preventDefault();
     setProductSelection(productList[e.target.value]);
   };
 
-  // Send data to backend
+  // Send new data to backend to update product information
   const handleSubmit = (e) => {
-    e.preventDefault();
+    e.preventDefault(); // Prevent page reload
     const submission = {
       name: name,
       manufacturer: manufacturer,
@@ -85,6 +89,7 @@ const ProductEdit = ({ productList, isActive }) => {
     });
   };
 
+  // Render the edit form prompt
   return (
     <div className={`form-container ${active ? 'active' : ''}`}>
       <form method="post" onSubmit={handleSubmit}>
@@ -97,7 +102,7 @@ const ProductEdit = ({ productList, isActive }) => {
         >
           <option disabled selected value>
             {' '}
-            -- select an product --{' '}
+            -- select a product --{' '}
           </option>
           {listProducts()}
         </select>
@@ -190,8 +195,10 @@ const ProductEdit = ({ productList, isActive }) => {
           required
         />
         <button type="submit" id="submit" disabled={loading}>
+          {/* If data is being submitted, prevent button spam */}
           {loading ? 'Submitting...' : 'Submit'}
         </button>
+        {/* Error message will show if server rejects request */}
         <div className="error-msg">{error}</div>
       </form>
     </div>

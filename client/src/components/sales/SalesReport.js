@@ -11,7 +11,6 @@ const StyledError = styled.p`
 `;
 
 const SalesReport = ({ salesPersonId }) => {
-  
   // Get sales person information based on ID
   // Update information every time ID changes
   const {
@@ -32,10 +31,10 @@ const SalesReport = ({ salesPersonId }) => {
     return <StyledError>{error}</StyledError>;
   }
 
- /**
+  /**
    * If no errors found and not loading, return a table with all sales information
    * for the specified sales person
-  */
+   */
   return (
     <table className="module sale-list">
       <thead>
@@ -79,7 +78,6 @@ const SalesReport = ({ salesPersonId }) => {
           <td>
             $
             {sales?.reduce((total, sale) => {
-              
               // Extract string values from object
               const { saleCommission, salePrice } = sale;
 

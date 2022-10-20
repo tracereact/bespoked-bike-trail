@@ -6,7 +6,6 @@ import { updateCustomer } from '../../services/customers';
 import { useAsyncFn } from '../../hooks/useAsync';
 
 const CustomerEdit = ({ customerList, isActive }) => {
-  
   // Store current customer and their information as states
   const [customerSelection, setCustomerSelection] = useState();
   const [firstName, setFirstName] = useState('');
@@ -14,7 +13,7 @@ const CustomerEdit = ({ customerList, isActive }) => {
   const [address, setAddress] = useState('');
   const [phone, setPhone] = useState('');
 
-  // Get function that allows customer information to be updated
+  // Get function that allows customer information to be updated asynchronously
   const {
     loading,
     error,
@@ -58,7 +57,7 @@ const CustomerEdit = ({ customerList, isActive }) => {
 
   // Send new data to backend to update customer information
   const handleSubmit = (e) => {
-    e.preventDefault();
+    e.preventDefault(); // Prevent page reload
     const submission = {
       firstName: firstName,
       lastName: lastName,
@@ -78,6 +77,7 @@ const CustomerEdit = ({ customerList, isActive }) => {
     });
   };
 
+  // Render the edit form prompt
   return (
     <div className={`form-container ${active ? 'active' : ''}`}>
       <form method="post" onSubmit={handleSubmit}>
@@ -145,8 +145,10 @@ const CustomerEdit = ({ customerList, isActive }) => {
           required
         />
         <button type="submit" id="submit" disabled={loading}>
+          {/* If data is being submitted, prevent button spam */}
           {loading ? 'Submitting...' : 'Submit'}
         </button>
+        {/* Error message will show if server rejects request */}
         <div className="error-msg">{error}</div>
       </form>
     </div>

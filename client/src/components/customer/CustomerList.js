@@ -14,7 +14,6 @@ const StyledError = styled.p`
 `;
 
 const CustomerList = () => {
-  
   /**
    * Get information for all customers in the database
    * Loading and error flags are all retrieved
