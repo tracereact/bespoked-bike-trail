@@ -53,7 +53,7 @@ const ProductEdit = ({ productList, isActive }) => {
     setSalePrice(productSelection?.salePrice);
     setQtyOnHand(productSelection?.qtyOnHand);
     setCommissionPercentage(productSelection?.commissionPercentage);
-  }, [productSelection]); // Update when selected product changes
+  }, [productSelection]); // Update when selected product is selected
 
   // Handle drop down selection and update selected product
   const productSelected = (e) => {

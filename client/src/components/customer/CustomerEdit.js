@@ -20,7 +20,7 @@ const CustomerEdit = ({ customerList, isActive }) => {
     execute: updateCustomerFn,
   } = useAsyncFn(updateCustomer);
 
-  // Flag that determines if the edit prompt is to be shown
+  // Flag that determines if the edit-prompt is to be shown
   // Default value will be what was passed in as a property
   const [active, setActive] = useState(isActive);
 
@@ -47,7 +47,7 @@ const CustomerEdit = ({ customerList, isActive }) => {
     setLastName(customerSelection?.lastName);
     setAddress(customerSelection?.address);
     setPhone(customerSelection?.phone);
-  }, [customerSelection]); // Update when selected customer changes
+  }, [customerSelection]); // Update when selected customer is selected
 
   // Handle drop down selection and update selected customer
   const customerSelected = (e) => {
@@ -77,7 +77,7 @@ const CustomerEdit = ({ customerList, isActive }) => {
     });
   };
 
-  // Render the edit form prompt
+  // Render the edit-prompt
   return (
     <div className={`form-container ${active ? 'active' : ''}`}>
       <form method="post" onSubmit={handleSubmit}>
