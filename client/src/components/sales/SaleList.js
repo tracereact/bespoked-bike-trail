@@ -17,19 +17,19 @@ const StyledError = styled.p`
 const SaleList = () => {
   const { loading, error, value: sales } = useAsync(getSales);
 
-  // Track list of objects
+  // Get information from API on each object
   const { value: products } = useAsync(getProducts);
   const { value: salesPeople } = useAsync(getSalesPeople);
   const { value: customers } = useAsync(getCustomers);
 
   const [addActive, setAddActive] = useState(false);
 
-  // Check if data is loading
+  // Show loading symbol if module is still loading
   if (loading) {
     return <Loader />;
   }
 
-  // Check if there is an error
+  // Show error message if there is an error
   if (error) {
     return <StyledError>{error}</StyledError>;
   }

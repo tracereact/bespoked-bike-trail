@@ -75,14 +75,16 @@ const SalesReport = ({ salesPersonId }) => {
               // Extract string values from object
               const { saleCommission, salePrice } = sale;
 
-              // Convert dollar amount to double
-              // Convert percentage to float
+              // Convert dollar amount string to double
+              // Convert percentage string to float
               let earnings =
                 Number(salePrice.replace(/[^0-9.-]+/g, '')) *
                 (parseFloat(saleCommission) / 100.0);
 
+              // Calculate earnings from sale
               earnings = Math.round(earnings * 100) / 100;
 
+              // Recursively sum all earnings from each sale
               return total + earnings;
             }, 0.0)}
           </td>
