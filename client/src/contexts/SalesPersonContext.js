@@ -26,7 +26,7 @@ const SalesPersonProvider = ({ children }) => {
   // Determine what should be shown based on sales person info received
   let ctx;
   if (loading) ctx = <Loader />;
-  else if (error) ctx = <h1>{error}</h1>;
+  else if (error) ctx = <p>{error}</p>;
   else ctx = children;
 
   return (
