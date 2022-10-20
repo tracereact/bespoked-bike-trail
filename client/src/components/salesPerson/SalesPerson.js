@@ -3,8 +3,10 @@ import { useSalesPerson } from '../../contexts/SalesPersonContext';
 import SalesReport from '../sales/SalesReport';
 
 const SalesPerson = () => {
+  // Get information on sales person from context
   const { salesPerson } = useSalesPerson();
 
+  // Render a table with sales person information
   return (
     <div>
       <table>
@@ -30,6 +32,7 @@ const SalesPerson = () => {
           </tr>
         </tbody>
       </table>
+      {/* Show the sales report of the selected sales person */}
       <SalesReport salesPersonId={salesPerson.id} />
     </div>
   );
