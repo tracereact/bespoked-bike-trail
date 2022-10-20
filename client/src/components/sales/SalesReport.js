@@ -11,6 +11,9 @@ const StyledError = styled.p`
 `;
 
 const SalesReport = ({ salesPersonId }) => {
+  
+  // Get sales person information based on ID
+  // Update information every time ID changes
   const {
     loading,
     error,
