@@ -15,13 +15,18 @@ const StyledError = styled.p`
 `;
 
 const SaleList = () => {
+  /**
+   * Get information for all sales in the database
+   * Loading and error flags are all retrieved
+   */
   const { loading, error, value: sales } = useAsync(getSales);
 
-  // Get information from API on each object
+  // Get information on each object from the database
   const { value: products } = useAsync(getProducts);
   const { value: salesPeople } = useAsync(getSalesPeople);
   const { value: customers } = useAsync(getCustomers);
 
+  // Flag that determines if the add prompt is to be shown
   const [addActive, setAddActive] = useState(false);
 
   // Show loading symbol if module is still loading
@@ -34,6 +39,7 @@ const SaleList = () => {
     return <StyledError>{error}</StyledError>;
   }
 
+  // If no errors found and not loading, render a table with all sales information
   return (
     <table className="module sale-list">
       <thead>
@@ -42,7 +48,7 @@ const SaleList = () => {
             Sales{' '}
             <AddButton
               onButtonClicked={() => {
-                setAddActive(true);
+                setAddActive(true); // Show prompt
               }}
             />
             <AddNew

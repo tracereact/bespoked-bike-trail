@@ -24,6 +24,7 @@ const Footer = () => {
       <div className="disclaimer">
         Application built by&nbsp;
         <span>
+          {/* Show page in a new tab */}
           <StyledAnchor
             href="https://tracereact.com"
             target="_blank"

@@ -7,10 +7,11 @@ import SalesPersonForm from '../salesPerson/SalesPersonForm';
 import SalesForm from '../sales/SalesForm';
 
 const AddNew = ({ products, salesPeople, customers, type, active }) => {
+  // Determine what add-prompt to display
   if (type === 'customer') return <CustomerForm isActive={active} />;
   if (type === 'product') return <ProductForm isActive={active} />;
   if (type === 'salesPerson') return <SalesPersonForm isActive={active} />;
-  if (type === 'sale')
+  if (type === 'sale') {
     return (
       <SalesForm
         productList={products}
@@ -19,7 +20,8 @@ const AddNew = ({ products, salesPeople, customers, type, active }) => {
         isActive={active}
       />
     );
-  return null;
+  }
+  return <div />; // Shouldn't reach here
 };
 
 // Prop type validation

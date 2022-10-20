@@ -6,6 +6,7 @@ import { addCustomer } from '../../services/customers';
 import { useAsyncFn } from '../../hooks/useAsync';
 
 const CustomerForm = ({ isActive }) => {
+  // Maintain customer information as states
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [address, setAddress] = useState('');
@@ -15,18 +16,21 @@ const CustomerForm = ({ isActive }) => {
   const [zipCode, setZipCode] = useState('');
   const [phone, setPhone] = useState('');
 
+  // Get function that allows customer information to be added asynchronously
   const { loading, error, execute: addCustomerFn } = useAsyncFn(addCustomer);
 
+  // Flag that determines if the add-prompt is to be shown
+  // Default value will be what was passed in as a property
   const [active, setActive] = useState(isActive);
 
-  // Execute when active status changes
+  // Prompt's initial view should be hidden
   useEffect(() => {
     setActive(isActive);
-  }, [isActive]);
+  }, [isActive]); // When the flag changes, update prompt to be shown
 
-  // Send data to backend
+  // Send new data to backend to add customer
   const handleSubmit = (e) => {
-    e.preventDefault();
+    e.preventDefault(); // Prevent page from reloading
     const submission = {
       firstName: firstName,
       lastName: lastName,
@@ -49,6 +53,7 @@ const CustomerForm = ({ isActive }) => {
     });
   };
 
+  // Render the add-prompt
   return (
     <div className={`form-container ${active ? 'active' : ''}`}>
       <form method="post" onSubmit={handleSubmit}>
@@ -156,8 +161,10 @@ const CustomerForm = ({ isActive }) => {
           required
         />
         <button type="submit" id="submit" disabled={loading}>
+          {/* If data is being submitted, prevent button spam */}
           {loading ? 'Submitting...' : 'Submit'}
         </button>
+        {/* Error message will show if server rejects request */}
         <div className="error-msg">{error}</div>
       </form>
     </div>

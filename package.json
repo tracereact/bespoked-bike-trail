@@ -1,0 +1,40 @@
+{
+  "name": "bespoked-bike-trail",
+  "version": "1.0.0",
+  "description": "### What? BeSpoked is a high-end bicycle shop and Bike Trail is their sales tracking application. ### Why? BeSpoked is introducing a new quarterly bonus based on sales as an incentive. This application was designed, to help track the commission and determine each salesperson’s quarterly bonus.",
+  "main": "index.js",
+  "scripts": {
+    "prepare": "husky install",
+    "lint": "eslint \"**/*.js\"",
+    "pretty": "npx prettier --write .",
+    "pretty-check": "npx eslint-config-prettier ."
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tracereact/bespoked-bike-trail.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/tracereact/bespoked-bike-trail/issues"
+  },
+  "homepage": "https://github.com/tracereact/bespoked-bike-trail#readme",
+  "devDependencies": {
+    "eslint": "^8.25.0",
+    "eslint-config-airbnb": "^19.0.4",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-plugin-import": "^2.26.0",
+    "eslint-plugin-jsx-a11y": "^6.6.1",
+    "eslint-plugin-react": "^7.31.10",
+    "eslint-plugin-react-hooks": "^4.6.0",
+    "husky": "^8.0.0",
+    "lint-staged": "^13.0.3",
+    "prettier": "^2.7.1"
+  },
+  "lint-staged": {
+    "**/*": "prettier --write --ignore-unknown",
+    "*.js": "eslint --cache --fix",
+    "*.{js,css,md}": "prettier --write"
+  }
+}
