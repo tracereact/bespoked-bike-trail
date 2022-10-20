@@ -6,6 +6,7 @@ import { addProduct } from '../../services/products';
 import { useAsyncFn } from '../../hooks/useAsync';
 
 const ProductForm = ({ isActive }) => {
+  // Maintain product information as states
   const [name, setName] = useState('');
   const [manufacturer, setManufacturer] = useState('');
   const [style, setStyle] = useState('');
@@ -14,16 +15,19 @@ const ProductForm = ({ isActive }) => {
   const [qtyOnHand, setQtyOnHand] = useState('');
   const [commissionPercentage, setCommissionPercentage] = useState('');
 
+  // Get function that allows product information to be added asynchronously
   const { loading, error, execute: addProductFn } = useAsyncFn(addProduct);
 
+  // Flag that determines if the add-prompt is to be shown
+  // Default value will be what was passed in as a property
   const [active, setActive] = useState(isActive);
 
-  // Execute when active status changes
+  // Prompt's initial view should be hidden
   useEffect(() => {
     setActive(isActive);
-  }, [isActive]);
+  }, [isActive]); // When the flag changes, update prompt to be shown
 
-  // Send data to backend
+  // Send new data to backend to add product
   const handleSubmit = (e) => {
     e.preventDefault();
     const submission = {
@@ -51,6 +55,7 @@ const ProductForm = ({ isActive }) => {
     });
   };
 
+  // Render the add-prompt
   return (
     <div className={`form-container ${active ? 'active' : ''}`}>
       <form method="post" onSubmit={handleSubmit}>
@@ -144,8 +149,10 @@ const ProductForm = ({ isActive }) => {
           required
         />
         <button type="submit" id="submit" disabled={loading}>
+          {/* If data is being submitted, prevent button spam */}
           {loading ? 'Submitting...' : 'Submit'}
         </button>
+        {/* Error message will show if server rejects request */}
         <div className="error-msg">{error}</div>
       </form>
     </div>
