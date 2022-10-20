@@ -22,22 +22,26 @@ const SalesReport = ({ salesPersonId }) => {
     return getSalesPersonSales(salesPersonId);
   }, [salesPersonId]);
 
-  // Check if data is loading
+  // Show loading symbol if module is still loading
   if (loading) {
     return <Loader />;
   }
 
-  // Check if there is an error
+  // Show error message if there is an error
   if (error) {
     return <StyledError>{error}</StyledError>;
   }
 
+ /**
+   * If no errors found and not loading, return a table with all sales information
+   * for the specified sales person
+  */
   return (
     <table className="module sale-list">
       <thead>
         <tr>
-          <td className="title" colSpan={5}>
-            Sales Report{' '}
+          <td className="title" colSpan={6}>
+            Sales Report
           </td>
         </tr>
       </thead>
@@ -75,6 +79,7 @@ const SalesReport = ({ salesPersonId }) => {
           <td>
             $
             {sales?.reduce((total, sale) => {
+              
               // Extract string values from object
               const { saleCommission, salePrice } = sale;
 
@@ -84,7 +89,7 @@ const SalesReport = ({ salesPersonId }) => {
                 Number(salePrice.replace(/[^0-9.-]+/g, '')) *
                 (parseFloat(saleCommission) / 100.0);
 
-              // Calculate earnings from sale
+              // Calculate earnings from sale and round to nearest penny
               earnings = Math.round(earnings * 100) / 100;
 
               // Recursively sum all earnings from each sale

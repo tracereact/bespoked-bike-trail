@@ -14,21 +14,28 @@ const StyledError = styled.p`
 `;
 
 const CustomerList = () => {
+  
+  /**
+   * Get information for all customers in the database
+   * Loading and error flags are all retrieved
+   */
   const { loading, error, value: customers } = useAsync(getCustomers);
 
+  // Flags that determine if the add or edit prompts are to be shown
   const [addActive, setAddActive] = useState(false);
   const [editActive, setEditActive] = useState(false);
 
-  // Check if data is loading
+  // Show loading symbol if module is still loading
   if (loading) {
     return <Loader />;
   }
 
-  // Check if there is an error
+  // Show error message if there is an error
   if (error) {
     return <StyledError>{error}</StyledError>;
   }
 
+  // If no errors found and not loading, return a table with all customer information
   return (
     <table className="module customer-list">
       <thead>
@@ -37,13 +44,13 @@ const CustomerList = () => {
             Customers{' '}
             <AddButton
               onButtonClicked={() => {
-                setAddActive(true);
+                setAddActive(true); // Show prompt
               }}
             />
             <AddNew type="customer" active={addActive} />{' '}
             <EditButton
               onButtonClicked={() => {
-                setEditActive(true);
+                setEditActive(true); // Show prompt
               }}
             />
             <Edit type="customer" list={customers} active={editActive} />

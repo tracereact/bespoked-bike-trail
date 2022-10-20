@@ -6,26 +6,31 @@ import { updateCustomer } from '../../services/customers';
 import { useAsyncFn } from '../../hooks/useAsync';
 
 const CustomerEdit = ({ customerList, isActive }) => {
+  
+  // Store current customer and their information as states
   const [customerSelection, setCustomerSelection] = useState();
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [address, setAddress] = useState('');
   const [phone, setPhone] = useState('');
 
+  // Get function that allows customer information to be updated
   const {
     loading,
     error,
     execute: updateCustomerFn,
   } = useAsyncFn(updateCustomer);
 
+  // Flag that determines if the edit prompt is to be shown
+  // Default value will be what was passed in as a property
   const [active, setActive] = useState(isActive);
 
-  // Execute when active status changes
+  // Prompt's initial view should be hidden
   useEffect(() => {
     setActive(isActive);
-  }, [isActive]);
+  }, [isActive]); // When the flag changes, update prompt to be shown
 
-  // Display list of customers
+  // Display list of customers in the drop-down menu
   const listCustomers = () => {
     const customers = customerList.map((customer, index) => {
       return (
@@ -37,7 +42,7 @@ const CustomerEdit = ({ customerList, isActive }) => {
     return customers;
   };
 
-  // Show info of customer selected from drop down
+  // Set fields of edit prompt to show current information for selected customer
   useEffect(() => {
     setFirstName(customerSelection?.firstName);
     setLastName(customerSelection?.lastName);
@@ -45,13 +50,13 @@ const CustomerEdit = ({ customerList, isActive }) => {
     setPhone(customerSelection?.phone);
   }, [customerSelection]); // Update when selected customer changes
 
-  // Handle drop down selection
+  // Handle drop down selection and update selected customer
   const customerSelected = (e) => {
     e.preventDefault();
     setCustomerSelection(customerList[e.target.value]);
   };
 
-  // Send data to backend
+  // Send new data to backend to update customer information
   const handleSubmit = (e) => {
     e.preventDefault();
     const submission = {

@@ -22,6 +22,7 @@ const SaleList = () => {
   const { value: salesPeople } = useAsync(getSalesPeople);
   const { value: customers } = useAsync(getCustomers);
 
+  // Flag that determines if the add prompt is to be shown
   const [addActive, setAddActive] = useState(false);
 
   // Show loading symbol if module is still loading
@@ -34,6 +35,7 @@ const SaleList = () => {
     return <StyledError>{error}</StyledError>;
   }
 
+  // If no errors found and not loading, return a table with all sales information
   return (
     <table className="module sale-list">
       <thead>
@@ -42,7 +44,7 @@ const SaleList = () => {
             Sales{' '}
             <AddButton
               onButtonClicked={() => {
-                setAddActive(true);
+                setAddActive(true); // Show prompt
               }}
             />
             <AddNew
