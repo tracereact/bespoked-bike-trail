@@ -62,10 +62,8 @@ const SalesReport = ({ salesPersonId }) => {
                 >{`${sale?.customer?.firstName} ${sale?.customer?.lastName}`}</Link>
               </td>
               <td className="col-3 date">{sale?.salesDate}</td>
-              <td className="col-4 price">{sale?.product?.salePrice}</td>
-              <td className="col-5 commission">
-                {sale?.product?.commissionPercentage}
-              </td>
+              <td className="col-4 price">{sale?.salePrice}</td>
+              <td className="col-5 commission">{sale?.saleCommission}</td>
             </tr>
           );
         })}
@@ -75,13 +73,13 @@ const SalesReport = ({ salesPersonId }) => {
             $
             {sales?.reduce((total, sale) => {
               // Extract string values from object
-              const { commissionPercentage, salePrice } = sale.product;
+              const { saleCommission, salePrice } = sale;
 
               // Convert dollar amount to double
               // Convert percentage to float
               let earnings =
                 Number(salePrice.replace(/[^0-9.-]+/g, '')) *
-                (parseFloat(commissionPercentage) / 100.0);
+                (parseFloat(saleCommission) / 100.0);
 
               earnings = Math.round(earnings * 100) / 100;
 
