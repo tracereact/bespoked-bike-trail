@@ -29,7 +29,7 @@ const ProductForm = ({ isActive }) => {
 
   // Send new data to backend to add product
   const handleSubmit = (e) => {
-    e.preventDefault();
+    e.preventDefault(); // Prevent page reload
     const submission = {
       name: name,
       manufacturer: manufacturer,

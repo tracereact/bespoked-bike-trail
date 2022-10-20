@@ -7,6 +7,7 @@ import Loader from '../components/utils/Loader';
 
 const Context = React.createContext();
 
+// Gather sales person information from context
 const useSalesPerson = () => {
   return useContext(Context);
 };
@@ -14,14 +15,14 @@ const useSalesPerson = () => {
 const SalesPersonProvider = ({ children }) => {
   const { id } = useParams(); // Get id from caller
 
-  // Use custom hook to get sales person info safely
+  // Get sales person information asynchronously
   const {
     loading,
     error,
     value: salesPerson,
   } = useAsync(() => {
     return getSalesPerson(id);
-  }, [id]);
+  }, [id]); // Update information every time ID changes
 
   // Determine what should be shown based on sales person info received
   let ctx;
@@ -29,11 +30,12 @@ const SalesPersonProvider = ({ children }) => {
   else if (error) ctx = <p>{error}</p>;
   else ctx = children;
 
+  // Render sales person context
   return (
     <Context.Provider
       // eslint-disable-next-line react/jsx-no-constructed-context-values
       value={{
-        salesPerson: { id, ...salesPerson },
+        salesPerson: { id, ...salesPerson }, // Expose sales person id and all other attributes
       }}
     >
       {ctx}

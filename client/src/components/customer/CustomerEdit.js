@@ -51,7 +51,7 @@ const CustomerEdit = ({ customerList, isActive }) => {
 
   // Handle drop down selection and update selected customer
   const customerSelected = (e) => {
-    e.preventDefault();
+    e.preventDefault(); // Prevent page from reloading
     setCustomerSelection(customerList[e.target.value]);
   };
 

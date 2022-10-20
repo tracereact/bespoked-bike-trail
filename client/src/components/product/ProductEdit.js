@@ -57,7 +57,7 @@ const ProductEdit = ({ productList, isActive }) => {
 
   // Handle drop down selection and update selected product
   const productSelected = (e) => {
-    e.preventDefault();
+    e.preventDefault(); // Prevent page reload
     setProductSelection(productList[e.target.value]);
   };
 

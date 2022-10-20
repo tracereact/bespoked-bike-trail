@@ -12,14 +12,13 @@ const StyledError = styled.p`
 
 const SalesReport = ({ salesPersonId }) => {
   // Get sales person information based on ID
-  // Update information every time ID changes
   const {
     loading,
     error,
     value: sales,
   } = useAsync(() => {
     return getSalesPersonSales(salesPersonId);
-  }, [salesPersonId]);
+  }, [salesPersonId]); // Update information every time ID changes
 
   // Show loading symbol if module is still loading
   if (loading) {
