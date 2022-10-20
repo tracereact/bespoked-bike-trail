@@ -14,21 +14,27 @@ const StyledError = styled.p`
 `;
 
 const ProductList = () => {
+  /**
+   * Get information for all products in the database
+   * Loading and error flags are all retrieved
+   */
   const { loading, error, value: products } = useAsync(getProducts);
 
+  // Flags that determine if the add or edit prompts are to be shown
   const [addActive, setAddActive] = useState(false);
   const [editActive, setEditActive] = useState(false);
 
-  // Check if data is loading
+  // Show loading symbol if module is still loading
   if (loading) {
     return <Loader />;
   }
 
-  // Check if there is an error
+  // Show error message if there is an error
   if (error) {
     return <StyledError>{error}</StyledError>;
   }
 
+  // If no errors found and not loading, render a table with all product information
   return (
     <table className="module product-list">
       <thead>
@@ -37,13 +43,13 @@ const ProductList = () => {
             Inventory{' '}
             <AddButton
               onButtonClicked={() => {
-                setAddActive(true);
+                setAddActive(true); // Show prompt
               }}
             />
             <AddNew type="product" active={addActive} />{' '}
             <EditButton
               onButtonClicked={() => {
-                setEditActive(true);
+                setEditActive(true); // Show prompt
               }}
             />
             <Edit type="product" list={products} active={editActive} />

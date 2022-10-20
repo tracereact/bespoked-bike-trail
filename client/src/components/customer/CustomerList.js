@@ -34,7 +34,7 @@ const CustomerList = () => {
     return <StyledError>{error}</StyledError>;
   }
 
-  // If no errors found and not loading, return a table with all customer information
+  // If no errors found and not loading, render a table with all customer information
   return (
     <table className="module customer-list">
       <thead>
