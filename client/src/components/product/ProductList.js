@@ -15,7 +15,7 @@ const StyledError = styled.p`
 
 const ProductList = () => {
   /**
-   * Get information for all products in the database
+   * Get information for all products from the database
    * Loading and error flags are all retrieved
    */
   const { loading, error, value: products } = useAsync(getProducts);
