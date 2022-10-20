@@ -78,15 +78,13 @@ const SaleList = () => {
                 >{`${sale?.customer?.firstName} ${sale?.customer?.lastName}`}</Link>
               </td>
               <td className="col-3 date">{sale?.salesDate}</td>
-              <td className="col-4 price">{sale?.product?.salePrice}</td>
+              <td className="col-4 price">{sale?.salePrice}</td>
               <td className="col-5 sales-person">
                 <Link
                   to={`/sales-people/${sale?.salesPersonId}`}
                 >{`${sale?.salesPerson?.firstName} ${sale?.salesPerson?.lastName}`}</Link>
               </td>
-              <td className="col-6 commission">
-                {sale?.product?.commissionPercentage}
-              </td>
+              <td className="col-6 commission">{sale?.saleCommission}</td>
             </tr>
           );
         })}

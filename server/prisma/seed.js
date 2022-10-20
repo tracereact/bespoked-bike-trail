@@ -6,9 +6,12 @@ const prisma = new PrismaClient();
  * Feed database with initial values
  */
 const seed = async () => {
-  await prisma.product.deleteMany();
-  await prisma.salesPerson.deleteMany();
+  // Clear current data
+  await prisma.sale.deleteMany();
+  await prisma.discount.deleteMany();
   await prisma.customer.deleteMany();
+  await prisma.salesPerson.deleteMany();
+  await prisma.product.deleteMany();
 
   // Product 1
   const superBike = await prisma.product.create({
@@ -83,6 +86,8 @@ const seed = async () => {
       productId: superBike.id,
       salesPersonId: bill.id,
       customerId: timmy.id,
+      salePrice: superBike.salePrice,
+      saleCommission: superBike.commissionPercentage,
     },
   });
 
@@ -92,6 +97,8 @@ const seed = async () => {
       productId: badBike.id,
       salesPersonId: bob.id,
       customerId: turner.id,
+      salePrice: badBike.salePrice,
+      saleCommission: badBike.commissionPercentage,
     },
   });
 
@@ -101,6 +108,8 @@ const seed = async () => {
       productId: badBike.id,
       salesPersonId: bill.id,
       customerId: timmy.id,
+      salePrice: badBike.salePrice,
+      saleCommission: badBike.commissionPercentage,
     },
   });
 

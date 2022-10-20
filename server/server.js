@@ -202,21 +202,24 @@ app.get('/sales', async () => {
         salesPersonId: true,
         customerId: true,
         salesDate: true,
+        salePrice: true,
+        saleCommission: true,
         product: {
           select: {
+            id: true,
             name: true,
-            salePrice: true,
-            commissionPercentage: true,
           },
         },
         customer: {
           select: {
+            id: true,
             firstName: true,
             lastName: true,
           },
         },
         salesPerson: {
           select: {
+            id: true,
             firstName: true,
             lastName: true,
           },
@@ -240,21 +243,17 @@ app.get('/sales/:salesPersonId', async (req) => {
         salesPersonId: true,
         customerId: true,
         salesDate: true,
+        salePrice: true,
+        saleCommission: true,
         product: {
           select: {
+            id: true,
             name: true,
-            salePrice: true,
-            commissionPercentage: true,
           },
         },
         customer: {
           select: {
-            firstName: true,
-            lastName: true,
-          },
-        },
-        salesPerson: {
-          select: {
+            id: true,
             firstName: true,
             lastName: true,
           },
@@ -375,6 +374,8 @@ app.post('/sales', async (req, res) => {
         productId: req.body.productId,
         salesPersonId: req.body.salesPersonId,
         customerId: req.body.customerId,
+        salePrice: req.body.salesPrice,
+        saleCommission: req.body.salesCommission,
       },
     })
   );

@@ -96,6 +96,8 @@ const SalesForm = ({
       productId: product,
       salesPersonId: salesPerson,
       customerId: customer,
+      salePrice: product.salePrice,
+      saleCommission: product.commissionPercentage,
     };
 
     // Submit data then clear form inputs and hide form
