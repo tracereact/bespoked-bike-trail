@@ -1,7 +1,7 @@
 /* eslint-disable object-shorthand */
 import React, { useEffect, useState } from 'react';
 import '../../styles/form.css';
-import PropTypes from 'prop-types';
+import PropTypes, { shape } from 'prop-types';
 import { updateSalesPerson } from '../../services/salesPeople';
 import { useAsyncFn } from '../../hooks/useAsync';
 
@@ -161,7 +161,7 @@ const SalesPersonEdit = ({ salesPersonList, isActive }) => {
 
 // Prop type validation
 SalesPersonEdit.propTypes = {
-  salesPersonList: PropTypes.array.isRequired,
+  salesPersonList: PropTypes.arrayOf(shape).isRequired,
   isActive: PropTypes.bool.isRequired,
 };
 
