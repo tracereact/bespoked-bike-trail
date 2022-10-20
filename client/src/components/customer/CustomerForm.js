@@ -30,7 +30,7 @@ const CustomerForm = ({ isActive }) => {
 
   // Send new data to backend to add customer
   const handleSubmit = (e) => {
-    e.preventDefault();
+    e.preventDefault(); // Prevent page from reloading
     const submission = {
       firstName: firstName,
       lastName: lastName,
