@@ -6,27 +6,30 @@ import { updateSalesPerson } from '../../services/salesPeople';
 import { useAsyncFn } from '../../hooks/useAsync';
 
 const SalesPersonEdit = ({ salesPersonList, isActive }) => {
+  // Store current sales person and their information as states
   const [salesPersonSelection, setSalesPersonSelection] = useState();
-
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [address, setAddress] = useState('');
   const [phone, setPhone] = useState('');
 
+  // Get function that allows sales person information to be updated asynchronously
   const {
     loading,
     error,
     execute: updateSalesPersonFn,
   } = useAsyncFn(updateSalesPerson);
 
+  // Flag that determines if the edit-prompt is to be shown
+  // Default value will be what was passed in as a property
   const [active, setActive] = useState(isActive);
 
-  // Execute when active status changes
+  // Prompt's initial view should be hidden
   useEffect(() => {
     setActive(isActive);
-  }, [isActive]);
+  }, [isActive]); // When the flag changes, update prompt to be shown
 
-  // Display list of salesPeople
+  // Display list of sales people in the drop-down menu
   const listSalesPeople = () => {
     const salesPeople = salesPersonList.map((salesPerson, index) => {
       return (
@@ -42,23 +45,23 @@ const SalesPersonEdit = ({ salesPersonList, isActive }) => {
     return salesPeople;
   };
 
-  // Show info of salesPerson selected from drop down
+  // Set fields of edit prompt to show current information for selected sales person
   useEffect(() => {
     setFirstName(salesPersonSelection?.firstName);
     setLastName(salesPersonSelection?.lastName);
     setAddress(salesPersonSelection?.address);
     setPhone(salesPersonSelection?.phone);
-  }, [salesPersonSelection]); // Update when selected salesPerson changes
+  }, [salesPersonSelection]); // Update when selected sales person changes
 
-  // Handle drop down selection
+  // Handle drop down selection and update selected sales person
   const salesPersonSelected = (e) => {
     e.preventDefault();
     setSalesPersonSelection(salesPersonList[e.target.value]);
   };
 
-  // Send data to backend
+  // Send new data to backend to update sales person information
   const handleSubmit = (e) => {
-    e.preventDefault();
+    e.preventDefault(); // Prevent page reload
     const submission = {
       firstName: firstName,
       lastName: lastName,
@@ -78,6 +81,7 @@ const SalesPersonEdit = ({ salesPersonList, isActive }) => {
     });
   };
 
+  // Render the edit-prompt
   return (
     <div className={`form-container ${active ? 'active' : ''}`}>
       <form method="post" onSubmit={handleSubmit}>
@@ -145,8 +149,10 @@ const SalesPersonEdit = ({ salesPersonList, isActive }) => {
           required
         />
         <button type="submit" id="submit" disabled={loading}>
+          {/* If data is being submitted, prevent button spam */}
           {loading ? 'Submitting...' : 'Submit'}
         </button>
+        {/* Error message will show if server rejects request */}
         <div className="error-msg">{error}</div>
       </form>
     </div>
@@ -155,7 +161,6 @@ const SalesPersonEdit = ({ salesPersonList, isActive }) => {
 
 // Prop type validation
 SalesPersonEdit.propTypes = {
-  // eslint-disable-next-line react/forbid-prop-types
   salesPersonList: PropTypes.array.isRequired,
   isActive: PropTypes.bool.isRequired,
 };
