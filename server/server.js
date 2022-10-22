@@ -451,4 +451,12 @@ app.put('/sales-people/:id', async (req, res) => {
 });
 
 // Start server
-app.listen({ port: process.env.PORT });
+app
+  .listen({ port: process.env.PORT })
+  .then(() => {
+    console.log('Server started successfully!');
+    console.log(`Now listening on port: ${process.env.PORT}`);
+  })
+  .catch((e) => {
+    console.log('Error while trying to start server: ', e);
+  });
