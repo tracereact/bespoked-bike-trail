@@ -40,12 +40,15 @@ CREATE TABLE "Customer" (
 
 -- CreateTable
 CREATE TABLE "Sale" (
+    "id" TEXT NOT NULL,
     "productId" TEXT NOT NULL,
     "salesPersonId" TEXT NOT NULL,
     "customerId" TEXT NOT NULL,
     "salesDate" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "salePrice" TEXT NOT NULL,
+    "saleCommission" TEXT NOT NULL,
 
-    CONSTRAINT "Sale_pkey" PRIMARY KEY ("customerId","productId")
+    CONSTRAINT "Sale_pkey" PRIMARY KEY ("id")
 );
 
 -- CreateTable
@@ -60,16 +63,16 @@ CREATE TABLE "Discount" (
 );
 
 -- AddForeignKey
-ALTER TABLE "SalesPerson" ADD CONSTRAINT "SalesPerson_managerId_fkey" FOREIGN KEY ("managerId") REFERENCES "SalesPerson"("id") ON DELETE SET NULL ON UPDATE CASCADE;
+ALTER TABLE "SalesPerson" ADD CONSTRAINT "SalesPerson_managerId_fkey" FOREIGN KEY ("managerId") REFERENCES "SalesPerson"("id") ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "Sale" ADD CONSTRAINT "Sale_productId_fkey" FOREIGN KEY ("productId") REFERENCES "Product"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "Sale" ADD CONSTRAINT "Sale_productId_fkey" FOREIGN KEY ("productId") REFERENCES "Product"("id") ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "Sale" ADD CONSTRAINT "Sale_salesPersonId_fkey" FOREIGN KEY ("salesPersonId") REFERENCES "SalesPerson"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "Sale" ADD CONSTRAINT "Sale_salesPersonId_fkey" FOREIGN KEY ("salesPersonId") REFERENCES "SalesPerson"("id") ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "Sale" ADD CONSTRAINT "Sale_customerId_fkey" FOREIGN KEY ("customerId") REFERENCES "Customer"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "Sale" ADD CONSTRAINT "Sale_customerId_fkey" FOREIGN KEY ("customerId") REFERENCES "Customer"("id") ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "Discount" ADD CONSTRAINT "Discount_productId_fkey" FOREIGN KEY ("productId") REFERENCES "Product"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "Discount" ADD CONSTRAINT "Discount_productId_fkey" FOREIGN KEY ("productId") REFERENCES "Product"("id") ON DELETE CASCADE ON UPDATE CASCADE;

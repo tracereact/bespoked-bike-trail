@@ -1,2 +1,8 @@
 node_modules
 .eslintcache
+.env
+
+# Docker
+/docker/docker-compose.env
+/docker/.docker-env
+/docker/pgpass

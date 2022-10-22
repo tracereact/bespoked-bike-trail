@@ -1,0 +1,16 @@
+{
+  "Servers": {
+    "1": {
+      "Name": "Fully Defined Server",
+      "Group": "Server Group 2",
+      "Host": "bespokedbikes_pg",
+      "Port": 5432,
+      "MaintenanceDB": "postgres",
+      "Username": "$POSTGRES_USER",
+      "SSLMode": "prefer",
+      "Comment": "This server has every option configured in the JSON",
+      "PassFile": "/path/to/pgpassfile",
+      "Timeout": 300
+    }
+  }
+}
