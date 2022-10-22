@@ -11,24 +11,29 @@ const SalesForm = ({
   customerList,
   isActive,
 }) => {
+  // Maintain current selected product, sales person, and customer
   const [productSelection, setProductSelection] = useState();
   const [salesPersonSelection, setSalesPersonSelection] = useState();
   const [customerSelection, setCustomerSelection] = useState();
 
+  // Maintain product, sales person, and customer information as states
   const [product, setProduct] = useState('');
   const [salesPerson, setSalesPerson] = useState('');
   const [customer, setCustomer] = useState('');
 
+  // Get function that allows sale information to be added asynchronously
   const { loading, error, execute: addSaleFn } = useAsyncFn(addSale);
 
+  // Flag that determines if the add-prompt is to be shown
+  // Default value will be what was passed in as a property
   const [active, setActive] = useState(isActive);
 
-  // Execute when active status changes
+  // Prompt's initial view should be hidden
   useEffect(() => {
     setActive(isActive);
-  }, [isActive]);
+  }, [isActive]); // When the flag changes, update prompt to be shown
 
-  // Display list of products
+  // Display list of products in the drop-down menu
   const listProducts = () => {
     const products = productList?.map((p, index) => {
       return (
@@ -40,7 +45,7 @@ const SalesForm = ({
     return products;
   };
 
-  // Display list of sales people
+  // Display list of sales people in the drop-down menu
   const listSalesPeople = () => {
     const salesPeople = salesPersonList?.map((sp, index) => {
       return (
@@ -52,7 +57,7 @@ const SalesForm = ({
     return salesPeople;
   };
 
-  // Display list of customers
+  // Display list of customers in the drop-down menu
   const listCustomers = () => {
     const customers = customerList?.map((c, index) => {
       return (
@@ -64,38 +69,40 @@ const SalesForm = ({
     return customers;
   };
 
-  // Show info of customer selected from drop down
+  // Set fields of prompt to show current information for each selection
   useEffect(() => {
     setProduct(productSelection?.id);
     setSalesPerson(salesPersonSelection?.id);
     setCustomer(customerSelection?.id);
-  }, [productSelection, salesPersonSelection, customerSelection]); // Update when selected customer changes
+  }, [productSelection, salesPersonSelection, customerSelection]); // Update when a selection changes
 
-  // Handle product drop down selection
+  // Handle drop down selection and update selected product
   const productSelected = (e) => {
-    e.preventDefault();
+    e.preventDefault(); // Prevent page from reloading
     setProductSelection(productList[e.target.value]);
   };
 
-  // Handle sales person drop down selection
+  // Handle drop down selection and update selected sales person
   const salesPersonSelected = (e) => {
-    e.preventDefault();
+    e.preventDefault(); // Prevent page from reloading
     setSalesPersonSelection(salesPersonList[e.target.value]);
   };
 
-  // Handle customer drop down selection
+  // Handle drop down selection and update selected customer
   const customerSelected = (e) => {
-    e.preventDefault();
+    e.preventDefault(); // Prevent page from reloading
     setCustomerSelection(customerList[e.target.value]);
   };
 
-  // Send data to backend
+  // Send new data to backend to add new sale information
   const handleSubmit = (e) => {
     e.preventDefault();
     const submission = {
       productId: product,
       salesPersonId: salesPerson,
       customerId: customer,
+      salePrice: product.salePrice,
+      saleCommission: product.commissionPercentage,
     };
 
     // Submit data then clear form inputs and hide form
@@ -109,6 +116,7 @@ const SalesForm = ({
     });
   };
 
+  // Render the add-prompt
   return (
     <div className={`form-container ${active ? 'active' : ''}`}>
       <form method="post" onSubmit={handleSubmit}>
@@ -150,8 +158,10 @@ const SalesForm = ({
           {listCustomers()}
         </select>
         <button type="submit" id="submit" disabled={loading}>
+          {/* If data is being submitted, prevent button spam */}
           {loading ? 'Submitting...' : 'Submit'}
         </button>
+        {/* Error message will show if server rejects request */}
         <div className="error-msg">{error}</div>
       </form>
     </div>

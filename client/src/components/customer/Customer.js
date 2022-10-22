@@ -2,8 +2,10 @@ import React from 'react';
 import { useCustomer } from '../../contexts/CustomerContext';
 
 const Customer = () => {
+  // Get information on customer from context
   const { customer } = useCustomer();
 
+  // Render a table with customer information
   return (
     <table>
       <thead>

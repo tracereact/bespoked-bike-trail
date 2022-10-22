@@ -7,6 +7,7 @@ import Loader from '../components/utils/Loader';
 
 const Context = React.createContext();
 
+// Gather product information from context
 const useProduct = () => {
   return useContext(Context);
 };
@@ -14,14 +15,14 @@ const useProduct = () => {
 const ProductProvider = ({ children }) => {
   const { id } = useParams(); // Get id from caller
 
-  // Use custom hook to get product info safely
+  // Get product information asynchronously
   const {
     loading,
     error,
     value: product,
   } = useAsync(() => {
     return getProduct(id);
-  }, [id]);
+  }, [id]); // Update information every time ID changes
 
   // Determine what should be shown based on product info received
   let ctx;
@@ -29,11 +30,12 @@ const ProductProvider = ({ children }) => {
   else if (error) ctx = <h1>{error}</h1>;
   else ctx = children;
 
+  // Render customer context
   return (
     <Context.Provider
       // eslint-disable-next-line react/jsx-no-constructed-context-values
       value={{
-        product: { id, ...product },
+        product: { id, ...product }, // Expose product id and all other attributes
       }}
     >
       {ctx}

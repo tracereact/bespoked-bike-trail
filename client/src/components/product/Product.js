@@ -2,8 +2,10 @@ import React from 'react';
 import { useProduct } from '../../contexts/ProductContext';
 
 const Product = () => {
+  // Get information on product from context
   const { product } = useProduct();
 
+  // Render a table with product information
   return (
     <table>
       <thead>

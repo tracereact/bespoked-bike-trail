@@ -15,25 +15,31 @@ const StyledError = styled.p`
 `;
 
 const SaleList = () => {
+  /**
+   * Get information for all sales in the database
+   * Loading and error flags are all retrieved
+   */
   const { loading, error, value: sales } = useAsync(getSales);
 
-  // Track list of objects
+  // Get information on each object from the database
   const { value: products } = useAsync(getProducts);
   const { value: salesPeople } = useAsync(getSalesPeople);
   const { value: customers } = useAsync(getCustomers);
 
+  // Flag that determines if the add prompt is to be shown
   const [addActive, setAddActive] = useState(false);
 
-  // Check if data is loading
+  // Show loading symbol if module is still loading
   if (loading) {
     return <Loader />;
   }
 
-  // Check if there is an error
+  // Show error message if there is an error
   if (error) {
     return <StyledError>{error}</StyledError>;
   }
 
+  // If no errors found and not loading, render a table with all sales information
   return (
     <table className="module sale-list">
       <thead>
@@ -42,7 +48,7 @@ const SaleList = () => {
             Sales{' '}
             <AddButton
               onButtonClicked={() => {
-                setAddActive(true);
+                setAddActive(true); // Show prompt
               }}
             />
             <AddNew
@@ -78,15 +84,13 @@ const SaleList = () => {
                 >{`${sale?.customer?.firstName} ${sale?.customer?.lastName}`}</Link>
               </td>
               <td className="col-3 date">{sale?.salesDate}</td>
-              <td className="col-4 price">{sale?.product?.salePrice}</td>
+              <td className="col-4 price">{sale?.salePrice}</td>
               <td className="col-5 sales-person">
                 <Link
                   to={`/sales-people/${sale?.salesPersonId}`}
                 >{`${sale?.salesPerson?.firstName} ${sale?.salesPerson?.lastName}`}</Link>
               </td>
-              <td className="col-6 commission">
-                {sale?.product?.commissionPercentage}
-              </td>
+              <td className="col-6 commission">{sale?.saleCommission}</td>
             </tr>
           );
         })}

@@ -32,7 +32,7 @@ model SalesPerson {
   phone           String
   startDate       DateTime      @default(now())
   terminationDate DateTime?
-  manager         SalesPerson?  @relation(name: "ManagerEmployee", fields: [managerId], references: [id])
+  manager         SalesPerson?  @relation(name: "ManagerEmployee", fields: [managerId], references: [id], onDelete: Cascade)
   managerId       String?
   employees       SalesPerson[] @relation(name: "ManagerEmployee")
 
@@ -51,20 +51,21 @@ model Customer {
 }
 
 model Sale {
-  id            String      @id @default(uuid())           
-  product       Product     @relation(fields: [productId], references: [id])
-  productId     String
-  salesPerson   SalesPerson @relation(fields: [salesPersonId], references: [id])
-  salesPersonId String
-  customer      Customer    @relation(fields: [customerId], references: [id])
-  customerId    String
-  salesDate     DateTime    @default(now())
-  salesPrice    String
+  id              String      @id @default(uuid())           
+  product         Product     @relation(fields: [productId], references: [id], onDelete: Cascade)
+  productId       String
+  salesPerson     SalesPerson @relation(fields: [salesPersonId], references: [id], onDelete: Cascade)
+  salesPersonId   String
+  customer        Customer    @relation(fields: [customerId], references: [id], onDelete: Cascade)
+  customerId      String
+  salesDate       DateTime    @default(now())
+  salePrice       String
+  saleCommission  String
 }
 
 model Discount {
   id                  String    @id @default(uuid())
-  product             Product   @relation(fields: [productId], references: [id])
+  product             Product   @relation(fields: [productId], references: [id], onDelete: Cascade)
   productId           String
   beginDate           DateTime  @default(now())
   endDate             DateTime?

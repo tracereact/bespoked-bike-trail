@@ -11,30 +11,35 @@ const StyledError = styled.p`
 `;
 
 const SalesReport = ({ salesPersonId }) => {
+  // Get sales person information based on ID
   const {
     loading,
     error,
     value: sales,
   } = useAsync(() => {
     return getSalesPersonSales(salesPersonId);
-  }, [salesPersonId]);
+  }, [salesPersonId]); // Update information every time ID changes
 
-  // Check if data is loading
+  // Show loading symbol if module is still loading
   if (loading) {
     return <Loader />;
   }
 
-  // Check if there is an error
+  // Show error message if there is an error
   if (error) {
     return <StyledError>{error}</StyledError>;
   }
 
+  /**
+   * If no errors found and not loading, return a table with all sales information
+   * for the specified sales person
+   */
   return (
     <table className="module sale-list">
       <thead>
         <tr>
-          <td className="title" colSpan={5}>
-            Sales Report{' '}
+          <td className="title" colSpan={6}>
+            Sales Report
           </td>
         </tr>
       </thead>
@@ -62,10 +67,8 @@ const SalesReport = ({ salesPersonId }) => {
                 >{`${sale?.customer?.firstName} ${sale?.customer?.lastName}`}</Link>
               </td>
               <td className="col-3 date">{sale?.salesDate}</td>
-              <td className="col-4 price">{sale?.product?.salePrice}</td>
-              <td className="col-5 commission">
-                {sale?.product?.commissionPercentage}
-              </td>
+              <td className="col-4 price">{sale?.salePrice}</td>
+              <td className="col-5 commission">{sale?.saleCommission}</td>
             </tr>
           );
         })}
@@ -75,16 +78,18 @@ const SalesReport = ({ salesPersonId }) => {
             $
             {sales?.reduce((total, sale) => {
               // Extract string values from object
-              const { commissionPercentage, salePrice } = sale.product;
+              const { saleCommission, salePrice } = sale;
 
-              // Convert dollar amount to double
-              // Convert percentage to float
+              // Convert dollar amount string to double
+              // Convert percentage string to float
               let earnings =
                 Number(salePrice.replace(/[^0-9.-]+/g, '')) *
-                (parseFloat(commissionPercentage) / 100.0);
+                (parseFloat(saleCommission) / 100.0);
 
+              // Calculate earnings from sale and round to nearest penny
               earnings = Math.round(earnings * 100) / 100;
 
+              // Recursively sum all earnings from each sale
               return total + earnings;
             }, 0.0)}
           </td>
