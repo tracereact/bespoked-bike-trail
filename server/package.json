@@ -4,7 +4,8 @@
   "description": "",
   "main": "server.js",
   "scripts": {
-    "devStart": "nodemon server.js",
+    "preinstall": "npm i nodemon -g; npx prisma generate",
+    "start": "nodemon server.js",
     "deploy": "npx prisma migrate dev --name init; nodemon server.js"
   },
   "author": "",
